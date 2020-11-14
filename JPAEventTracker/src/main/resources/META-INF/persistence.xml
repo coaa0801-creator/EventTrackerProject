@@ -9,6 +9,12 @@
     </provider>
 
 <class>com.skilldistillery.cheyenne.entities.Job</class>
+<class>com.skilldistillery.cheyenne.entities.Address</class>
+<class>com.skilldistillery.cheyenne.entities.Customer</class>
+<class>com.skilldistillery.cheyenne.entities.Department</class>
+<class>com.skilldistillery.cheyenne.entities.Part</class>
+<class>com.skilldistillery.cheyenne.entities.Employee</class>
+<class>com.skilldistillery.cheyenne.entities.Permit</class>
 
 
     <properties>
