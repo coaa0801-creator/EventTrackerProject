@@ -65,10 +65,10 @@ DROP TABLE IF EXISTS `job` ;
 CREATE TABLE IF NOT EXISTS `job` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `active` TINYINT NOT NULL DEFAULT 1,
+  `active` TINYINT NOT NULL DEFAULT '1',
   `address_id` INT NULL,
   `estimate` DECIMAL NULL DEFAULT NULL,
-  `paid` TINYINT NOT NULL DEFAULT 0,
+  `paid` TINYINT NOT NULL DEFAULT '0',
   `customer_id` INT NULL,
   `create_date` DATETIME NULL DEFAULT NULL,
   `last_update` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -376,4 +376,3 @@ INSERT INTO `permit` (`id`, `identifier`, `type`, `job_id`, `create_date`, `last
 INSERT INTO `permit` (`id`, `identifier`, `type`, `job_id`, `create_date`, `last_update`) VALUES (2, 'G-AFHAFDHA', 'Ventilation', 1, NULL, NULL);
 
 COMMIT;
-
