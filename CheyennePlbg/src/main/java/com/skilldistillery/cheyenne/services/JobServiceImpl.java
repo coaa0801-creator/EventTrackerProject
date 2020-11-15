@@ -68,9 +68,12 @@ public class JobServiceImpl implements JobService {
 		Job update = null;
 		if (jobOpt.isPresent()) {
 			update = jobOpt.get();
-			if (newJob.getName() != null) {
-				update.setName(newJob.getName());
-			}
+			if (newJob.getName() != null) {update.setName(newJob.getName());	}
+			if (newJob.getActive() != 1) {update.setActive(newJob.getActive());	}
+			if (newJob.getAddress() != null) {update.setAddress(newJob.getAddress());	}
+			if (newJob.getEstimate() > 0) {update.setEstimate(newJob.getEstimate());	}
+			if (newJob.getPaid() != 1) {update.setPaid(newJob.getPaid());	}
+			if (newJob.getCustomer() != null) {update.setCustomer(newJob.getCustomer());	}
 			repo.flush();
 		}
 		return update;
