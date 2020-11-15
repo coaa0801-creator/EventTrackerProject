@@ -30,7 +30,11 @@ public class JobController {
 	  }
 	  
 	  @GetMapping("jobs/{id}")
-	  public Job show(@PathVariable int id){
+	  public Job show(@PathVariable int id, HttpServletResponse response){
+		  Job job = jobSvc.findById(id);
+		  if (job == null) {
+			  response.setStatus(404);
+		  }
 		    return jobSvc.findById(id);
 		  }
 	  

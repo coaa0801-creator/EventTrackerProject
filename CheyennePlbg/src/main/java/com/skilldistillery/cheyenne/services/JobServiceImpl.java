@@ -46,7 +46,7 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public Job createJob(Job newJob) {
-		return repo.save(newJob);
+		return repo.saveAndFlush(newJob);
 	}
 
 	@Override
