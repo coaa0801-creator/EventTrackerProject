@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Permit {
 	@Id
@@ -24,6 +26,7 @@ public class Permit {
 	private String type;
 	@ManyToOne
 	@JoinColumn(name="job_id")
+	@JsonIgnore
 	private Job job;
 	
 	@Column(name = "create_date")

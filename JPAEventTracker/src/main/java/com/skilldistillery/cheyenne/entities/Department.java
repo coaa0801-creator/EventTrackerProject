@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Department {
 	@Id
@@ -20,6 +22,7 @@ public class Department {
 	private String name;
 	
 	@ManyToMany(mappedBy="jobTypes")
+	@JsonIgnore
 	private List<Job> jobs;
 	
 	@OneToMany(mappedBy="jobType")
@@ -27,6 +30,7 @@ public class Department {
 	
 	@ManyToMany
 	@JoinTable(name="employee_type", joinColumns = @JoinColumn(name = "department_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
+	@JsonIgnore
 	private List<Employee> staff;
 	
 	

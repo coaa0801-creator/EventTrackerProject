@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Part {
 @Id
@@ -26,6 +28,7 @@ private Double price;
 
 @ManyToOne
 @JoinColumn(name="job_id")
+@JsonIgnore
 private Job job;
 
 private String condition;
@@ -37,6 +40,7 @@ private Integer shipTime;
 
 @ManyToOne
 @JoinColumn(name="department_id")
+@JsonIgnore
 private Department jobType;
 
 @Column(name = "create_date")

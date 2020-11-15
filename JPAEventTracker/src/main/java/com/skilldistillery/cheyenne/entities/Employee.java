@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Employee {
 	@Id
@@ -34,10 +36,12 @@ public class Employee {
 	private Integer wage;
 	
 	@ManyToMany(mappedBy="staff")
+	@JsonIgnore
 	private List<Department> jobTypes;
 	
 	
 	@ManyToMany(mappedBy="staff")
+	@JsonIgnore
 	private List<Job> jobs;
 
 	@Override

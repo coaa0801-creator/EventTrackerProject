@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Customer {
 	@Id
@@ -46,6 +48,7 @@ public class Customer {
 	private String company;
 	
 	@OneToMany(mappedBy="customer")
+	@JsonIgnore
 	private List<Job> jobs;
 
 	public List<Job> getJobs() {

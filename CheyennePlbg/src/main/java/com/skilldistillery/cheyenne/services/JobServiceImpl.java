@@ -1,6 +1,8 @@
 package com.skilldistillery.cheyenne.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,33 +17,63 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public List<Job> findAllJobs() {
-		return repo.findAll();
+		List<Job> allJobs = repo.findAll();
+		List<Job> newList = new ArrayList<Job>();
+		for (Job job : allJobs) {
+			int index = 0;
+			int active = job.getActive();
+			if (active == 1) {
+				newList.add(allJobs.get(index));
+			}
+			index++;
+
+		}
+		return newList;
 	}
 
 	@Override
 	public Job findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Job> jobOpt = repo.findById(id);
+		Job job = null;
+		if (jobOpt.isPresent()) {
+			job = jobOpt.get();
+			if (job.getActive() == 0) {
+				job = null;
+			}
+		}
+		return job;
 	}
 
 	@Override
 	public Job createJob(Job newJob) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.save(newJob);
 	}
 
 	@Override
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean deleted = false;
+		Optional<Job> jobOpt = repo.findById(id);
+		if (jobOpt.isPresent()) {
+			Job job = jobOpt.get();
+			job.setActive(0);
+			repo.save(job);
+			deleted = true;
+		}
+		return deleted;
 	}
 
 	@Override
 	public Job updateJob(Job newJob, int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+		Optional<Job> jobOpt = repo.findById(id);
+		Job update = null;
+		if (jobOpt.isPresent()) {
+			update = jobOpt.get();
+			if (newJob.getName() != null) {
+				update.setName(newJob.getName());
+			}
+			repo.flush();
+		}
+		return update;
 
+	}
 }

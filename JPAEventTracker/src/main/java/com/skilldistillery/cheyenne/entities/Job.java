@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Job {
 @Id
@@ -61,6 +63,7 @@ private Address address;
 private List<Employee> staff;
 
 @OneToMany(mappedBy="job")
+@JsonIgnore
 private List<Part> parts;
 
 
