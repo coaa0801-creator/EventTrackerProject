@@ -19,8 +19,8 @@ public class JobServiceImpl implements JobService {
 	public List<Job> findAllJobs() {
 		List<Job> allJobs = repo.findAll();
 		List<Job> newList = new ArrayList<Job>();
+		int index = 0;
 		for (Job job : allJobs) {
-			int index = 0;
 			int active = job.getActive();
 			if (active == 1) {
 				newList.add(allJobs.get(index));
@@ -69,14 +69,14 @@ public class JobServiceImpl implements JobService {
 		if (jobOpt.isPresent()) {
 			update = jobOpt.get();
 			if (newJob.getName() != null) {update.setName(newJob.getName());	}
-			if (newJob.getActive() != 1) {update.setActive(newJob.getActive());	}
+			update.setActive(newJob.getActive());	
 			if (newJob.getAddress() != null) {update.setAddress(newJob.getAddress());	}
 			if (newJob.getEstimate() > 0) {update.setEstimate(newJob.getEstimate());	}
 			if (newJob.getPaid() != 1) {update.setPaid(newJob.getPaid());	}
 			if (newJob.getCustomer() != null) {update.setCustomer(newJob.getCustomer());	}
-			repo.flush();
+			
 		}
-		return update;
+		return repo.saveAndFlush(update);
 
 	}
 }

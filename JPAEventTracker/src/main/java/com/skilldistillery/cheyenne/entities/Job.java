@@ -28,9 +28,9 @@ private int id;
 
 private String name;
 
-private int active;
+private int active = 1;
 
-private int paid;
+private int paid = 0;
 
 @Column(name = "create_date")
 @CreationTimestamp

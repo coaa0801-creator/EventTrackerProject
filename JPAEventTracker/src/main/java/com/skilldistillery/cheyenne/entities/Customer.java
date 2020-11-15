@@ -39,7 +39,7 @@ public class Customer {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 	
-	private int active;
+	private int active = 1;
 	
 	@OneToOne
 	@JoinColumn(name="address_id")
