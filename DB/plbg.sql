@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `email` VARCHAR(45) NULL,
   `create_date` DATETIME NULL,
   `last_update` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `active` TINYINT NOT NULL DEFAULT '1',
+  `active` TINYINT(4) NOT NULL DEFAULT '1',
   `address_id` INT NOT NULL,
   `company` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
@@ -65,10 +65,10 @@ DROP TABLE IF EXISTS `job` ;
 CREATE TABLE IF NOT EXISTS `job` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `active` TINYINT NOT NULL DEFAULT '1',
+  `active` TINYINT(4) NOT NULL DEFAULT '1',
   `address_id` INT NULL,
   `estimate` DECIMAL NULL DEFAULT NULL,
-  `paid` TINYINT NOT NULL DEFAULT '0',
+  `paid` TINYINT(4) NOT NULL DEFAULT '0',
   `customer_id` INT NULL,
   `create_date` DATETIME NULL DEFAULT NULL,
   `last_update` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `part` (
   `price` VARCHAR(45) NULL DEFAULT NULL,
   `job_id` INT NOT NULL,
   `condition` VARCHAR(45) NOT NULL,
-  `available` TINYINT NOT NULL DEFAULT '1',
+  `available` TINYINT(4) NOT NULL DEFAULT '1',
   `ship_time` INT NULL,
   `department_id` INT NOT NULL,
   `create_date` DATETIME NULL,
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NULL,
-  `active` TINYINT NOT NULL DEFAULT '1',
+  `active` TINYINT(4) NOT NULL DEFAULT '1',
   `address_id` INT NOT NULL,
   `wage` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -376,3 +376,4 @@ INSERT INTO `permit` (`id`, `identifier`, `type`, `job_id`, `create_date`, `last
 INSERT INTO `permit` (`id`, `identifier`, `type`, `job_id`, `create_date`, `last_update`) VALUES (2, 'G-AFHAFDHA', 'Ventilation', 1, NULL, NULL);
 
 COMMIT;
+
