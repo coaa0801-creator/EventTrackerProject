@@ -11,6 +11,10 @@ Work planner and estimate creator for independent contractor. Allows for trackin
 ## Walkthrough (Long Version)
 The event tracker is designed to enable independent contractors the ability to enter and track their contracted jobs from start to finish. A manager/owner will be able to have a unique to them dashboard which allows them to load in their departments, employees, inventory and any customer data associated with the job. Currently build out is in the early phases of testing and has limited functionality to only the creation, recall and update of the main "Job" entities. While delete functionality is provided in the event a job is cancelled or removed, the most common way to remove a job from the contractors list will be to update the job to "inactive". This change will allow the contractor to recall jobs that were cancelled or unfulfilled. This allows for inventory reclamation or find losses that may have been incurred by the unfinished work. Testing can be verified by using the below paths. We look forward to expanding on this initial system setup to allow for additional functionality.
 
+#### *API Endpoints*
+
+http://localhost:8083/
+
 | Return Type         | Route                                 | Functionality                           |
 | ------------------- | ------------------------------------- | --------------------------------------- |
 | List< Job > 	  | GET api/jobs                    	| Gets all Jobs                     	|
