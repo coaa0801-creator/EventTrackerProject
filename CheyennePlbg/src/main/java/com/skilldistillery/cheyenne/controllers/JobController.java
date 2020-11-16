@@ -71,7 +71,7 @@ public class JobController {
 			try {
 				boolean delete = jobSvc.delete(id);
 				if(delete) {
-				response.setStatus(204);}
+				response.setStatus(200);}
 				else {
 				  response.setStatus(404);
 				}
