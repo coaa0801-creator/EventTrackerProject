@@ -14,7 +14,7 @@ The event tracker is designed to enable independent contractors the ability to e
 | Return Type         | Route                                 | Functionality                           |
 | ------------------- | ------------------------------------- | --------------------------------------- |
 | List< Job > 	  | GET api/jobs                    	| Gets all Jobs                     	|
-| Job       	    | GET api/workouts/{id}            	    | Gets one Job by id                	|
+| Job       	    | GET api/jobs/{id}            	    | Gets one Job by id                	|
 | Job           	| PUT api/jobs/{id}               	| Update a Job                      	|
 | Job           	| POST api/jobs                   	| Add a Job                         	|
 | Void              	| Delete api/jobs/{id}            	| Delete/Deactivate a Job                      	|
