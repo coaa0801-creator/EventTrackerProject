@@ -1,5 +1,26 @@
 window.addEventListener("load", function(){
 console.log('script loaded');
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'api/jobs/', true);
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4) {
+    console.log('Request Complete.');
+    if (xhr.status === 200) {
+      console.log('request Successful');
+      var jobs = JSON.parse(xhr.responseText);
+      let count = jobs.length;
+      console.log(count);
+      let numJobs = document.getElementById('numInList');
+      numJobs.textContent = "(" + count + " jobs in your list)";
+      } else {
+      console.error('request failed ' + xhr.status);
+      var dataDiv = document.getElementById('ResultBody');
+      dataDiv.textContent = 'No Jobs Found';
+    }
+  }
+
+}
+xhr.send();
   init();
 });
 
@@ -14,6 +35,7 @@ function init() {
 
 let deleteJobByID = function(e){
   e.preventDefault();
+  window.location = window.location;
   var dataDiv = document.getElementById('resultBody');
   var response = confirm("Are you sure you'd like to delete");
   if(response){
@@ -44,6 +66,7 @@ let deleteJobByID = function(e){
 
 let updateJobByID = function(e){
   e.preventDefault();
+  window.location = window.location;
   var resultData = document.getElementById('resultBody');
   resultData.textContent = '';
 
@@ -86,6 +109,9 @@ let updateJobByID = function(e){
           submit.value = e.target.value;
           submit.textContent = "Save";
           updateForm.appendChild(submit);
+          let h1 = document.createElement('h1');
+          h1.textContent = "Update " + job.name + " job";
+          resultData.appendChild(h1);
           resultData.appendChild(updateForm);
           submit.addEventListener('click', saveJobUpdate);
         
@@ -104,6 +130,7 @@ let updateJobByID = function(e){
 
 let saveJobUpdate = function(e){
 e.preventDefault();
+window.location = window.location;
 let xhr = new XMLHttpRequest();
 let jobId = e.target.value;
   xhr.open('PUT', 'api/jobs/' + jobId , true);
@@ -148,6 +175,7 @@ if (e.target.parentElement.paid.value === "Paid"){
 
 let lookUpJobByID = function(e){
   e.preventDefault();
+  window.location = window.location;
   var jobId = document.jobLookup.jobId.value;
   if (!isNaN(jobId) && jobId > 0) {
     let xhr = new XMLHttpRequest();
@@ -175,6 +203,7 @@ let lookUpJobByID = function(e){
 
 let createJob = function(e){
   e.preventDefault();
+  window.location = window.location;
   let xhr = new XMLHttpRequest();
   xhr.open('POST', 'api/jobs/', true);
   xhr.setRequestHeader("Content-type", "application/json");
@@ -200,8 +229,11 @@ let createJob = function(e){
   xhr.send(userObjectJSON);
 };
 
+  
+
 
 let findAll = function(e){
+
   console.log("in find All");
   e.preventDefault();
   let xhr = new XMLHttpRequest();
