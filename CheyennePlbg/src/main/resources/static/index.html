@@ -7,13 +7,14 @@
 </head>
 <body>
 <h1>Welcome to the Dashboard</h1>
-
-<form style="width:175px" name="findAll">
+<h3 style="display:inline" id="numInList" ></h3>
+<form style="display:inline;" name="findAll">
 <button name="findAllSubmit">Find All Jobs</button>
-</form><h3 style="width:300px" id="numInList" ></h3>
+</form>
 <br>
+<h1></h1>
 <form name="jobLookup">
-  <input type="number" name="jobId">
+  <input type="number" name="jobId" placeholder="Job ID #">
   <button name="lookup">Get Job by Id</button>
 </form>
 <div id="resultBody"></div>
