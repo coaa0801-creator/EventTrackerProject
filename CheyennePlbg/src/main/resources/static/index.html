@@ -10,6 +10,7 @@
 <form name="findAll">
 <button name="findAllSubmit">Find All Jobs</button>
 </form>
+<br>
 <form name="jobLookup">
   <input type="number" name="jobId">
   <button name="lookup">Get Job by Id</button>
@@ -17,8 +18,11 @@
 <div id="resultBody"></div>
 <hr>
 <h2>Create A New Job Entry</h2>
-
-
+<form name="newJob">
+  <input type="text" class="newJob" id="name" placeholder="Name"><br>
+  <input type="number" min="0" class="newJob" id="estimate" placeholder="Estimate"><br>
+  <input type="submit" name="createJob" value="Create New Job">
+  </form>
 
 
 
