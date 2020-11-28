@@ -1,0 +1,20 @@
+<div *ngIf='!selected'>
+  <table>
+    <thead>
+      <tr>
+        <td>id</td>
+        <td>name</td>
+        <td>Address</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let j of jobs" (click)="setJob(j)">
+        <td>{{ j.id}}</td>
+        <td>{{ j.name }}</td>
+        <td>
+          <!-- {{j.address.street}} -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
