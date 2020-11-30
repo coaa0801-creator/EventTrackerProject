@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -42,9 +40,8 @@ public class Customer {
 	
 	private int active = 1;
 	
-	@OneToOne
-	@JoinColumn(name="address_id")
-	private Address address;
+	@OneToMany(mappedBy="customer")
+	private List<Address> addresses;
 	
 	private String company;
 	
@@ -116,12 +113,12 @@ public class Customer {
 		this.active = active;
 	}
 
-	public Address getAddress() {
-		return address;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	public String getCompany() {
@@ -154,7 +151,7 @@ public class Customer {
 	}
 
 	public Customer(int id, String firstName, String lastName, String email, LocalDateTime createDate,
-			LocalDateTime lastUpdate, int active, Address address, String company) {
+			LocalDateTime lastUpdate, int active, String company) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -163,7 +160,6 @@ public class Customer {
 		this.createDate = createDate;
 		this.lastUpdate = lastUpdate;
 		this.active = active;
-		this.address = address;
 		this.company = company;
 	}
 
@@ -192,8 +188,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", createDate="
-				+ createDate + ", lastUpdate=" + lastUpdate + ", active=" + active + ", address=" + address
-				+ ", company=" + company + "]";
+				+ createDate + ", lastUpdate=" + lastUpdate + ", active=" + active + ", company=" + company + "]";
 	}
 	
 }

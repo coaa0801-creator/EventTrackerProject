@@ -12,3 +12,7 @@
 .newJobHeader{
   text-align: center;
 }
+
+.errors {
+  color: red;
+}

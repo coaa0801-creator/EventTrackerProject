@@ -16,7 +16,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<Customer> findAllCustomers() {
-		return (List<Customer>) repo.findAll();
+		List<Customer> allCust = repo.findAll();
+	for (Customer customer : allCust) {
+		customer.getAddresses().size();
+	}
+		return allCust;
 		
 	}
 
@@ -58,10 +62,8 @@ public class CustomerServiceImpl implements CustomerService {
 			if (newCustomer.getLastName() != null) {update.setLastName(newCustomer.getLastName());	}
 			if (newCustomer.getEmail() != null) {update.setEmail(newCustomer.getEmail());	}
 			if (newCustomer.getCompany() != null) {update.setCompany(newCustomer.getCompany());	}
-			if (newCustomer.getAddress() != null) {update.setAddress(newCustomer.getAddress());	}
-			if (newCustomer.getJobs().size() > update.getJobs().size()) {update.addJob(newCustomer.getJobs().get(newCustomer.getJobs().size() - 1));}
-		
-			
+			if (newCustomer.getAddresses() != null) {update.setAddresses(newCustomer.getAddresses());	}
+			if (newCustomer.getJobs().size() > update.getJobs().size()) {update.addJob(newCustomer.getJobs().get(newCustomer.getJobs().size() - 1));}	
 		}
 		return repo.saveAndFlush(update);
 

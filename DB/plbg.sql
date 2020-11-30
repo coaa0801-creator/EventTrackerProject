@@ -16,23 +16,6 @@ CREATE SCHEMA IF NOT EXISTS `cheyplbgdb` DEFAULT CHARACTER SET utf8 ;
 USE `cheyplbgdb` ;
 
 -- -----------------------------------------------------
--- Table `address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `address` ;
-
-CREATE TABLE IF NOT EXISTS `address` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `address` VARCHAR(45) NOT NULL,
-  `address2` VARCHAR(45) NULL DEFAULT NULL,
-  `city` VARCHAR(45) NOT NULL,
-  `state` CHAR(2) NOT NULL,
-  `postal_code` VARCHAR(10) NULL DEFAULT NULL,
-  `phone` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `customer`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `customer` ;
@@ -45,13 +28,30 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `create_date` DATETIME NULL,
   `last_update` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `active` TINYINT(4) NOT NULL DEFAULT '1',
-  `address_id` INT NOT NULL,
   `company` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `address` ;
+
+CREATE TABLE IF NOT EXISTS `address` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `address` VARCHAR(45) NOT NULL,
+  `address2` VARCHAR(45) NULL DEFAULT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  `state` CHAR(2) NOT NULL,
+  `postal_code` VARCHAR(10) NULL DEFAULT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  `customer_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_customer_address1_idx` (`address_id` ASC),
-  CONSTRAINT `fk_customer_address1`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `address` (`id`)
+  INDEX `fk_address_customer1_idx` (`customer_id` ASC),
+  CONSTRAINT `fk_address_customer1`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `customer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -260,25 +260,25 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `address`
+-- Data for table `customer`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cheyplbgdb`;
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`) VALUES (1, '25 RB St', NULL, 'Stanford', 'MN', NULL, '3545683658');
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`) VALUES (2, '35 BR Ave', NULL, 'Gilmore', 'MN', NULL, '1651312612');
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`) VALUES (3, '3564 Min Ct', NULL, 'Jiminey', 'MN', NULL, '564354654');
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`) VALUES (4, '1354 Private Ln', NULL, 'Folsom', 'MN', NULL, '542543535');
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`) VALUES (5, '2000 Made Up Job', NULL, 'Prior Lake', 'MN', NULL, '123456789');
+INSERT INTO `customer` (`id`, `first_name`, `last_name`, `email`, `create_date`, `last_update`, `active`, `company`) VALUES (1, 'Kyle', 'Carlson', 'Kyle@gmail.com', NULL, NULL, 1, NULL);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `customer`
+-- Data for table `address`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cheyplbgdb`;
-INSERT INTO `customer` (`id`, `first_name`, `last_name`, `email`, `create_date`, `last_update`, `active`, `address_id`, `company`) VALUES (1, 'Kyle', 'Carlson', 'Kyle@gmail.com', NULL, NULL, 1, 5, NULL);
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`, `customer_id`) VALUES (1, '25 RB St', NULL, 'Stanford', 'MN', NULL, '3545683658', NULL);
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`, `customer_id`) VALUES (2, '35 BR Ave', NULL, 'Gilmore', 'MN', NULL, '1651312612', NULL);
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`, `customer_id`) VALUES (3, '3564 Min Ct', NULL, 'Jiminey', 'MN', NULL, '564354654', NULL);
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`, `customer_id`) VALUES (4, '1354 Private Ln', NULL, 'Folsom', 'MN', NULL, '542543535', NULL);
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `phone`, `customer_id`) VALUES (5, '2000 Made Up Job', NULL, 'Prior Lake', 'MN', NULL, '123456789', 1);
 
 COMMIT;
 
@@ -376,3 +376,4 @@ INSERT INTO `permit` (`id`, `identifier`, `type`, `job_id`, `create_date`, `last
 INSERT INTO `permit` (`id`, `identifier`, `type`, `job_id`, `create_date`, `last_update`) VALUES (2, 'G-AFHAFDHA', 'Ventilation', 1, NULL, NULL);
 
 COMMIT;
+

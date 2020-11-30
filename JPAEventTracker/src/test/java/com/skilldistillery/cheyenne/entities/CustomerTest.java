@@ -47,7 +47,7 @@ class CustomerTest {
 	@Test
 	void testEntitytoAddress() {
 		assertNotNull(cust);
-		assertEquals("2000 Made Up Job", cust.getAddress().getAddress());
+		assertEquals("2000 Made Up Job", cust.getAddresses().get(0).getAddress());
 	}
 	@Test
 	void testEntitytoJob() {

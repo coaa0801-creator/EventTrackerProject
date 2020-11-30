@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Address {
@@ -19,6 +23,10 @@ public class Address {
 	@Column(name="postal_code")
 	private String zip;
 	private String phone;
+	@ManyToOne
+	@JoinColumn(name="customer_id")
+	@JsonIgnore
+	private Customer customer;
 	@Override
 	public String toString() {
 		return "Address [address=" + address + ", address2=" + address2 + ", city=" + city + ", state=" + state
@@ -124,6 +132,12 @@ public class Address {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	
 
