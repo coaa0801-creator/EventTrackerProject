@@ -40,7 +40,7 @@ export class PlbgComponent implements OnInit {
   menuShow = '';
   menuExpand = false;
   menuCount = 1;
-
+  lastAddressIndex = (this.addresses.length-1);
   constructor(private jServ: JobService, private cServ: CustomerService, private aServ: AddressService) {}
 
   ngOnInit(): void {
@@ -192,9 +192,9 @@ export class PlbgComponent implements OnInit {
 
       createNewCustomer(){
         this.loadAddresses();
-        let index = (this.addresses.length - 1);
-        if (this.addresses[index].address === this.newAddress.address){
-          const newAddress = this.addresses[index];
+
+        if (this.addresses[this.lastAddressIndex].address === this.newAddress.address){
+          const newAddress = this.addresses[this.lastAddressIndex];
             this.newCustomer.addresses.push(newAddress);
           this.newJob.address = newAddress;
       }
@@ -231,7 +231,7 @@ console.log(this.newJob.address);
           this.addJob = false;
           this.existingCustomerNewJob = false;
           this.newCustomerAddJob = false;
-          // location.reload();
+          location.reload();
         },
         (err) => {}
         );

@@ -46,7 +46,7 @@ public class CustomerController {
 			
 			
 			try {
-				customerSvc.createCustomer(userParam);
+				userParam = customerSvc.createCustomer(userParam);
 				response.setStatus(201);
 				response.setHeader("Location", "api/customers/" + userParam.getId());
 			} catch (Exception e) {

@@ -46,9 +46,9 @@ public class AddressController {
 			
 			
 			try {
-				AddressSvc.createAddress(userParam);
+				userParam = AddressSvc.createAddress(userParam);
 				response.setStatus(201);
-				response.setHeader("Location", "api/Addresss/" + userParam.getId());
+				response.setHeader("Location", "api/addresss/" + userParam.getId());
 			} catch (Exception e) {
 				response.setStatus(400);
 			}

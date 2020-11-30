@@ -34,7 +34,7 @@ export class JobService {
   .pipe(
     catchError((err: any) => {
       console.log(err);
-      return throwError('Error getting Pokemon list');
+      return throwError('Error getting Job list');
     })
   );
 }
@@ -44,7 +44,7 @@ export class JobService {
   .pipe(
     catchError((err: any) => {
       console.log(err);
-      return throwError('Error getting Pokemon list');
+      return throwError('Error getting Job list');
     })
   );
 }

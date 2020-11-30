@@ -46,7 +46,7 @@ public class JobController {
 			
 			
 			try {
-				jobSvc.createJob(userParam);
+				userParam = jobSvc.createJob(userParam);
 				response.setStatus(201);
 				response.setHeader("Location", "api/jobs/" + userParam.getId());
 			} catch (Exception e) {
