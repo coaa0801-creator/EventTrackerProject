@@ -164,7 +164,7 @@
 
     </div>
     <button (click)='addJob = false'>Back</button>
-    <button type="button" name="submit" (click)="createNewJob()">Create New Job</button>
+    <input type="button" value="Create New Job" (click)="createNewAddress()">
 
 
   </form>
@@ -194,14 +194,14 @@
         <td>{{ j.id}}</td>
         <td>{{ j.name }}</td>
         <td>{{ j.address.address}} {{j.address.address2}} {{j.address.city}}, {{j.address.state}} {{j.address.zip}}</td>
-        <td class="tableButton"><button (click)='updateJob = true'>Update Job</button></td>
-        <td class="tableButton"><button (click)='deleteJob(j.id)'>Delete Job</button></td>
+        <td class="tableButton"><input type="button" value='Update Job' (click)='updateJob = true'></td>
+        <td class="tableButton"><input type="button" value='Delete Job' (click)='deleteJob(j.id)'></td>
       </tr>
     </tbody>
   </table>
   </div>
 <div *ngIf="selected && jobPage && updateJob">
-  Update Form
+
 </div>
 
 

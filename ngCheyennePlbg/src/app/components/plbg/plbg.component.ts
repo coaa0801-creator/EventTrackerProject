@@ -155,7 +155,7 @@ export class PlbgComponent implements OnInit {
 
   }
 
-  createNewJob() {
+  createNewAddress() {
 
     if (this.newJob.name == null) {
       this.errors.push('Job Name field can not be empty');
@@ -178,23 +178,33 @@ export class PlbgComponent implements OnInit {
 
     if (this.errors.length == 0) {
       if (this.newAddress.id == undefined){
-        console.log(this.newAddress);
+        // console.log(this.newAddress);
 
-        this.newAddress.customer = this.newCustomer;
         this.aServ.create(this.newAddress).subscribe(
           (data) => {
-           this.loadAddresses();
+            this.loadAddresses();
           },
           (err) => {}
           );
         }
+        this.createNewCustomer();
+      }}
 
+      createNewCustomer(){
+        this.loadAddresses();
+        console.log(this.addresses);
 
-        if (this.addresses[this.addresses.length - 1].address === this.newAddress.address){
-          if(!this.newCustomer.addresses.includes(this.addresses[this.addresses.length - 1])){
-            this.newCustomer.addresses.push(this.newAddress);
-          }
-          this.newJob.address = this.addresses[this.addresses.length -1];
+        console.log(this.addresses.length-1);
+
+        console.log(this.addresses[this.addresses.length - 1]);
+
+        const index = (this.addresses.length - 1);
+        if (this.addresses[index].address === this.newAddress.address){
+          const newAddress = this.addresses[index];
+          console.log(newAddress);
+
+            this.newCustomer.addresses.push(newAddress);
+          this.newJob.address = newAddress;
       }
 
 
@@ -207,38 +217,47 @@ export class PlbgComponent implements OnInit {
           (err) => {}
         );
       }
+      this.createNewJob();
+    }
 
+
+    createNewJob(){
+      this.loadCustomers();
       if (this.customers[this.customers.length - 1].firstName === this.newCustomer.firstName && this.customers[this.customers.length - 1].lastName === this.newCustomer.lastName ) {
         this.newJob.customer = this.customers[this.customers.length - 1];
       }
+      console.log(this.newJob.customer);
+
 console.log(this.newJob.address);
 
       this.jServ.create(this.newJob).subscribe(
         (data) => {
           this.loadJobs();
+          // this.newAddress = new Address();
+          // this.newCustomer = new Customer();
+          // this.newJob = new Job();
+          // this.addJob = false;
+          // this.existingCustomerNewJob = false;
+          // this.newCustomerAddJob = false;
+          location.reload();
         },
         (err) => {}
         );
-        this.newAddress = new Address();
-        this.newCustomer = new Customer();
-        this.newJob = new Job();
-        this.addJob = false;
-        this.existingCustomerNewJob = false;
-        this.newCustomerAddJob = false;
 
       }
 
 
 
 
-    }
 
 deleteJob(id: number){
-let response = confirm("Are you sure you want to delete the " + this.jobs[id - 1].name + " job?");
+let response = false;
+response = confirm("Are you sure you want to delete the " + this.jobs[id - 1].name + " job?");
 if (response){
   this.jServ.destroy(id).subscribe(
     (data) => {
       this.loadJobs();
+      location.reload();
     },
     (err) => {}
     );

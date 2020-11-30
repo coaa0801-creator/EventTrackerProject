@@ -24,6 +24,7 @@ export class Customer {
             this.email= email;
             this.addresses= addresses;
             this.company= company;
+            this.addresses = [];
 
 
 
