@@ -146,10 +146,6 @@ export class PlbgComponent implements OnInit {
   }
 
   createNewJob() {
-    console.log(this.newCustomer);
-    console.log(this.newCustomer.id);
-    console.log(this.newAddress);
-    console.log(this.newAddress.id);
 
     if (this.newJob.name == null) {
       this.errors.push('Job Name field can not be empty');
@@ -179,8 +175,13 @@ export class PlbgComponent implements OnInit {
           (err) => {}
           );
         }
+        console.log(this.newAddress.id);
+
         if (this.newAddress.id != undefined){
-          this.newCustomer.addresses.push(this.newAddress);
+          if(!this.newCustomer.addresses.includes(this.newAddress)){
+            this.newCustomer.addresses.push(this.newAddress);
+          }
+          this.newJob.address = this.newAddress;
       }
       console.log(this.newCustomer);
 
@@ -192,7 +193,6 @@ export class PlbgComponent implements OnInit {
           (err) => {}
         );
       }
-      console.log(this.newCustomer.id);
 
       if (this.newCustomer.id != undefined) {
         this.newJob.customer = this.newCustomer;
