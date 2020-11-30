@@ -1,3 +1,5 @@
+import { Customer } from './customer';
+
 export class Address {
 
   id: number;
@@ -5,8 +7,9 @@ export class Address {
 address2: String;
 city: String;
 state: String;
-zip: number;
-phone: number;
+zip: String;
+phone: String;
+customer: Customer;
 
 constructor(
   id?: number,
@@ -14,8 +17,9 @@ constructor(
 address2?: String,
 city?: String,
 state?: String,
-zip?: number,
-phone?: number
+zip?: String,
+phone?: String,
+customer?: Customer
 ){
  this.id= id;
  this.address= address;
@@ -24,6 +28,7 @@ this.city= city;
 this.state= state;
 this.zip= zip;
 this.phone= phone;
+this.customer = customer;
 }
 
 }

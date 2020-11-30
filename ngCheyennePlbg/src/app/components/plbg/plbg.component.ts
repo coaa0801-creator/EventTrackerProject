@@ -14,6 +14,7 @@ import { JobService } from 'src/app/services/job.service';
 export class PlbgComponent implements OnInit {
   jobs: Job[] = [];
   customers: Customer[] = [];
+  addresses: Address [] = [];
   errors: String[] = [];
   selected = null;
   jobPage = false;
@@ -45,6 +46,7 @@ export class PlbgComponent implements OnInit {
   ngOnInit(): void {
     this.loadJobs();
     this.loadCustomers();
+    this.loadAddresses();
 
   }
 
@@ -52,6 +54,14 @@ export class PlbgComponent implements OnInit {
     this.jServ.index().subscribe(
       (data) => {
         this.jobs = data;
+      },
+      (err) => {}
+    );
+  }
+  loadAddresses(): void {
+    this.aServ.index().subscribe(
+      (data) => {
+        this.addresses = data;
       },
       (err) => {}
     );
@@ -168,51 +178,54 @@ export class PlbgComponent implements OnInit {
 
     if (this.errors.length == 0) {
       if (this.newAddress.id == undefined){
+        console.log(this.newAddress);
+
+        this.newAddress.customer = this.newCustomer;
         this.aServ.create(this.newAddress).subscribe(
           (data) => {
-            this.newAddress = data;
+           this.loadAddresses();
           },
           (err) => {}
           );
         }
-        console.log(this.newAddress.id);
 
-        if (this.newAddress.id != undefined){
-          if(!this.newCustomer.addresses.includes(this.newAddress)){
+
+        if (this.addresses[this.addresses.length - 1].address === this.newAddress.address){
+          if(!this.newCustomer.addresses.includes(this.addresses[this.addresses.length - 1])){
             this.newCustomer.addresses.push(this.newAddress);
           }
-          this.newJob.address = this.newAddress;
+          this.newJob.address = this.addresses[this.addresses.length -1];
       }
-      console.log(this.newCustomer);
+
 
       if ((this.newCustomer.id == undefined)) {
         this.cServ.create(this.newCustomer).subscribe(
           (data) => {
-            this.newCustomer = data;
+            this.loadCustomers();
+
           },
           (err) => {}
         );
       }
 
-      if (this.newCustomer.id != undefined) {
-        this.newJob.customer = this.newCustomer;
+      if (this.customers[this.customers.length - 1].firstName === this.newCustomer.firstName && this.customers[this.customers.length - 1].lastName === this.newCustomer.lastName ) {
+        this.newJob.customer = this.customers[this.customers.length - 1];
       }
+console.log(this.newJob.address);
 
       this.jServ.create(this.newJob).subscribe(
         (data) => {
-          this.newJob = data;
+          this.loadJobs();
         },
         (err) => {}
         );
-
-        this.loadCustomers();
-        this.loadJobs();
         this.newAddress = new Address();
         this.newCustomer = new Customer();
         this.newJob = new Job();
         this.addJob = false;
         this.existingCustomerNewJob = false;
         this.newCustomerAddJob = false;
+
       }
 
 
@@ -220,6 +233,17 @@ export class PlbgComponent implements OnInit {
 
     }
 
+deleteJob(id: number){
+let response = confirm("Are you sure you want to delete the " + this.jobs[id - 1].name + " job?");
+if (response){
+  this.jServ.destroy(id).subscribe(
+    (data) => {
+      this.loadJobs();
+    },
+    (err) => {}
+    );
+}
+}
 
 
 

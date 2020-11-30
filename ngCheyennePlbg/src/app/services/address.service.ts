@@ -18,12 +18,22 @@ export class AddressService {
     })
   };
 
+  index(): Observable<Address[]> {
+    return this.http.get<Address[]>(this.url + '?sorted=true')
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('KABOOM');
+        })
+      );
+  }
+
   create(data: Address) {
     this.url = this.baseUrl + 'api/addresses'
   return this.http.post<any>(this.url, data, this.httpOptions)  .pipe(
     catchError((err: any) => {
       console.log(err);
-      return throwError('Error getting Pokemon list');
+      return throwError('Error getting Address list');
     })
   );
 }

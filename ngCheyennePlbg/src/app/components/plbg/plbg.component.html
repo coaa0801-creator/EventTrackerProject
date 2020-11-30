@@ -128,7 +128,7 @@
         <option value="WI">Wisconsin</option>
         <option value="WY">Wyoming</option>
       </select>&nbsp;
-      <input type="number" name="zip" placeholder="5-Digit Zip Code" [(ngModel)]="newAddress.zip"><br>
+      <input type="text" name="zip" placeholder="5-Digit Zip Code" [(ngModel)]="newAddress.zip"><br>
       <label for="phone" style="width: 80px;">Phone #:</label>
       <input type="text" name="phone" placeholder="10-digit (no dashes)" [(ngModel)]="newAddress.phone">&nbsp;
 
@@ -195,7 +195,7 @@
         <td>{{ j.name }}</td>
         <td>{{ j.address.address}} {{j.address.address2}} {{j.address.city}}, {{j.address.state}} {{j.address.zip}}</td>
         <td class="tableButton"><button (click)='updateJob = true'>Update Job</button></td>
-        <td class="tableButton"><button>Delete Job</button></td>
+        <td class="tableButton"><button (click)='deleteJob(j.id)'>Delete Job</button></td>
       </tr>
     </tbody>
   </table>

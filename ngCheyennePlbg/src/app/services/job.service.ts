@@ -38,5 +38,15 @@ export class JobService {
     })
   );
 }
+  destroy(data: number) {
+    this.url = this.baseUrl + 'api/jobs/' + data;
+  return this.http.delete<any>(this.url, this.httpOptions)
+  .pipe(
+    catchError((err: any) => {
+      console.log(err);
+      return throwError('Error getting Pokemon list');
+    })
+  );
+}
 
 }
