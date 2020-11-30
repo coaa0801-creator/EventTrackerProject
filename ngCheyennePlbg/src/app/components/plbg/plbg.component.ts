@@ -192,17 +192,9 @@ export class PlbgComponent implements OnInit {
 
       createNewCustomer(){
         this.loadAddresses();
-        console.log(this.addresses);
-
-        console.log(this.addresses.length-1);
-
-        console.log(this.addresses[this.addresses.length - 1]);
-
-        const index = (this.addresses.length - 1);
+        let index = (this.addresses.length - 1);
         if (this.addresses[index].address === this.newAddress.address){
           const newAddress = this.addresses[index];
-          console.log(newAddress);
-
             this.newCustomer.addresses.push(newAddress);
           this.newJob.address = newAddress;
       }
@@ -233,13 +225,13 @@ console.log(this.newJob.address);
       this.jServ.create(this.newJob).subscribe(
         (data) => {
           this.loadJobs();
-          // this.newAddress = new Address();
-          // this.newCustomer = new Customer();
-          // this.newJob = new Job();
-          // this.addJob = false;
-          // this.existingCustomerNewJob = false;
-          // this.newCustomerAddJob = false;
-          location.reload();
+          this.newAddress = new Address();
+          this.newCustomer = new Customer();
+          this.newJob = new Job();
+          this.addJob = false;
+          this.existingCustomerNewJob = false;
+          this.newCustomerAddJob = false;
+          // location.reload();
         },
         (err) => {}
         );
