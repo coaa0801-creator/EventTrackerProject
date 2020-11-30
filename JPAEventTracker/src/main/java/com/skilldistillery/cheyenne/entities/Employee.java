@@ -27,7 +27,7 @@ public class Employee {
 	
 	private String email;
 	
-	private int active;
+	private Boolean active = true;
 
 	@OneToOne
 	@JoinColumn(name="address_id")
@@ -58,7 +58,6 @@ public class Employee {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + active;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
@@ -129,11 +128,11 @@ public class Employee {
 		this.email = email;
 	}
 
-	public int getActive() {
+	public Boolean getActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 

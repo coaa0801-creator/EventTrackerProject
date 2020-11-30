@@ -33,7 +33,7 @@ private Job job;
 
 private String condition;
 
-private int available;
+private Boolean available = true;
 
 @Column(name="ship_time")
 private Integer shipTime;
@@ -125,11 +125,11 @@ public void setCondition(String condition) {
 	this.condition = condition;
 }
 
-public int getAvailable() {
+public Boolean getAvailable() {
 	return available;
 }
 
-public void setAvailable(int available) {
+public void setAvailable(Boolean available) {
 	this.available = available;
 }
 

@@ -139,6 +139,14 @@ public class Address {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	
+	public void addCustomer(Customer customer) {
+		if (this.customer.getId() == 0) {
+			this.customer = customer;
+		}
+	}
+
+	public void removeCustomer(Customer customer) {
+		this.customer = null;
+	}
 
 }

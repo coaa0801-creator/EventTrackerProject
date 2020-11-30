@@ -16,7 +16,7 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public List<Address> findAllAddresss() {
-		return (List<Address>) repo.findAll();
+		return repo.findAll();
 		
 	}
 

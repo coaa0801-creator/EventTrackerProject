@@ -38,7 +38,7 @@ public class Customer {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 	
-	private int active = 1;
+	private Boolean active = true;
 	
 	@OneToMany(mappedBy="customer")
 	private List<Address> addresses;
@@ -105,11 +105,11 @@ public class Customer {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public int getActive() {
+	public Boolean getActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 
@@ -145,13 +145,29 @@ public class Customer {
 			job.removeCustomer(this);
 		}
 	}
+	public void addAddress(Address address) {
+		if (addresses == null) {
+			addresses = new ArrayList<Address>();
+		}
+		if (!addresses.contains(address)) {
+			addresses.add(address);
+			address.addCustomer(this);
+		}
+	}
+	
+	public void removeAddress(Address address) {
+		if (addresses != null && addresses.contains(address)) {
+			addresses.remove(address);
+			address.removeCustomer(this);
+		}
+	}
 
 	public Customer() {
 		super();
 	}
 
 	public Customer(int id, String firstName, String lastName, String email, LocalDateTime createDate,
-			LocalDateTime lastUpdate, int active, String company) {
+			LocalDateTime lastUpdate, Boolean active, String company) {
 		super();
 		this.id = id;
 		this.firstName = firstName;

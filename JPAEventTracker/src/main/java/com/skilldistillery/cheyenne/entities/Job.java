@@ -28,9 +28,9 @@ private int id;
 
 private String name;
 
-private int active = 1;
+private Boolean active = true;
 
-private int paid = 0;
+private Boolean paid = false;
 
 @Column(name = "create_date")
 @CreationTimestamp
@@ -77,19 +77,19 @@ public void removeCustomer(Customer customer) {
 }
 
 
-public int getActive() {
+public Boolean getActive() {
 	return active;
 }
 
-public void setActive(int active) {
+public void setActive(Boolean active) {
 	this.active = active;
 }
 
-public int getPaid() {
+public Boolean getPaid() {
 	return paid;
 }
 
-public void setPaid(int paid) {
+public void setPaid(Boolean paid) {
 	this.paid = paid;
 }
 

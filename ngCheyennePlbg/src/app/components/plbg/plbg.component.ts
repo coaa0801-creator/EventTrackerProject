@@ -54,17 +54,21 @@ export class PlbgComponent implements OnInit {
     this.jServ.index().subscribe(
       (data) => {
         this.jobs = data;
+        console.log(this.jobs);
       },
       (err) => {}
     );
+
   }
   loadAddresses(): void {
     this.aServ.index().subscribe(
       (data) => {
         this.addresses = data;
+        console.log(this.addresses);
       },
       (err) => {}
     );
+
   }
 
   loadCustomers(): void {
@@ -155,69 +159,30 @@ export class PlbgComponent implements OnInit {
 
   }
 
-  createNewAddress() {
-
-    if (this.newJob.name == null) {
-      this.errors.push('Job Name field can not be empty');
-    }
-    if (this.newCustomer.firstName == null) {
-      this.errors.push('First Name field can not be empty');
-    }
-    if (this.newCustomer.lastName == null) {
-      this.errors.push('Last Name field can not be empty');
-    }
-    if (this.newAddress.address == null) {
-      this.errors.push('Street Address field can not be empty');
-    }
-    if (this.newAddress.city == null) {
-      this.errors.push('City field can not be empty');
-    }
-    if (this.newAddress.state == null) {
-      this.errors.push('State field can not be empty');
-    }
-
-    if (this.errors.length == 0) {
-      if (this.newAddress.id == undefined){
-        // console.log(this.newAddress);
-
-        this.aServ.create(this.newAddress).subscribe(
-          (data) => {
-            this.loadAddresses();
-          },
-          (err) => {}
-          );
-        }
-        this.createNewCustomer();
-      }}
-
-      createNewCustomer(){
-        this.loadAddresses();
-
-        if (this.addresses[this.lastAddressIndex].address === this.newAddress.address){
-          const newAddress = this.addresses[this.lastAddressIndex];
-            this.newCustomer.addresses.push(newAddress);
-          this.newJob.address = newAddress;
-      }
-
-
-      if ((this.newCustomer.id == undefined)) {
-        this.cServ.create(this.newCustomer).subscribe(
-          (data) => {
-            this.loadCustomers();
-
-          },
-          (err) => {}
-        );
-      }
-      this.createNewJob();
-    }
-
 
     createNewJob(){
-      this.loadCustomers();
-      if (this.customers[this.customers.length - 1].firstName === this.newCustomer.firstName && this.customers[this.customers.length - 1].lastName === this.newCustomer.lastName ) {
-        this.newJob.customer = this.customers[this.customers.length - 1];
+      if (this.newJob.name == null) {
+        this.errors.push('Job Name field can not be empty');
       }
+      if (this.newCustomer.firstName == null) {
+        this.errors.push('First Name field can not be empty');
+      }
+      if (this.newCustomer.lastName == null) {
+        this.errors.push('Last Name field can not be empty');
+      }
+      if (this.newAddress.address == null) {
+        this.errors.push('Street Address field can not be empty');
+      }
+      if (this.newAddress.city == null) {
+        this.errors.push('City field can not be empty');
+      }
+      if (this.newAddress.state == null) {
+        this.errors.push('State field can not be empty');
+      }
+
+      if (this.errors.length == 0) {
+      this.newJob.address = this.newAddress;
+      this.newJob.customer = this.newCustomer;
       console.log(this.newJob.customer);
 
 console.log(this.newJob.address);
@@ -231,13 +196,13 @@ console.log(this.newJob.address);
           this.addJob = false;
           this.existingCustomerNewJob = false;
           this.newCustomerAddJob = false;
-          location.reload();
+
         },
         (err) => {}
         );
 
       }
-
+    }
 
 
 
@@ -249,7 +214,6 @@ if (response){
   this.jServ.destroy(id).subscribe(
     (data) => {
       this.loadJobs();
-      location.reload();
     },
     (err) => {}
     );

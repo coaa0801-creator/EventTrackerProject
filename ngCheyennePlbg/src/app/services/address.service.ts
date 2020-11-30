@@ -19,6 +19,7 @@ export class AddressService {
   };
 
   index(): Observable<Address[]> {
+    this.url = this.baseUrl + 'api/addresses'
     return this.http.get<Address[]>(this.url + '?sorted=true')
       .pipe(
         catchError((err: any) => {

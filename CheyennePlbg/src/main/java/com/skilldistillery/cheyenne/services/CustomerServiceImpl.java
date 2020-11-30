@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Optional<Customer> customerOpt = repo.findById(id);
 		if (customerOpt.isPresent()) {
 			Customer cust = customerOpt.get();
-			cust.setActive(0);
+			cust.setActive(false);
 			repo.save(cust);
 			deleted = true;
 		}

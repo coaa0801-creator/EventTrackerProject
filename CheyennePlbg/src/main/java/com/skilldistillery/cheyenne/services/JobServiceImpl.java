@@ -8,21 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.cheyenne.entities.Job;
+import com.skilldistillery.cheyenne.repositories.AddressRepository;
+import com.skilldistillery.cheyenne.repositories.CustomerRepository;
 import com.skilldistillery.cheyenne.repositories.JobRepository;
 
 @Service
 public class JobServiceImpl implements JobService {
 	@Autowired
-	private JobRepository repo;
+	private JobRepository jRepo;
+	@Autowired
+	private CustomerRepository cRepo;
+	@Autowired
+	private AddressRepository aRepo;
 
 	@Override
 	public List<Job> findAllJobs() {
-		List<Job> allJobs = repo.findAll();
+		List<Job> allJobs = jRepo.findAll();
 		List<Job> newList = new ArrayList<Job>();
 		int index = 0;
 		for (Job job : allJobs) {
-			int active = job.getActive();
-			if (active == 1) {
+			if (job.getActive()) {
 				newList.add(allJobs.get(index));
 			}
 			index++;
@@ -33,11 +38,11 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public Job findById(int id) {
-		Optional<Job> jobOpt = repo.findById(id);
+		Optional<Job> jobOpt = jRepo.findById(id);
 		Job job = null;
 		if (jobOpt.isPresent()) {
 			job = jobOpt.get();
-			if (job.getActive() == 0) {
+			if (job.getActive() == false) {
 				job = null;
 			}
 		}
@@ -46,17 +51,30 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public Job createJob(Job newJob) {
-		return repo.saveAndFlush(newJob);
+		if(newJob.getAddress() != null){
+			aRepo.saveAndFlush(newJob.getAddress());
+		}
+		if(newJob.getCustomer() != null) {
+				cRepo.saveAndFlush(newJob.getCustomer());
+			}
+		newJob.getAddress().setCustomer(newJob.getCustomer());
+		if(!newJob.getCustomer().getAddresses().contains(newJob.getAddress())) {
+			newJob.getCustomer().addAddress(newJob.getAddress());
+		}
+		cRepo.save(newJob.getCustomer());
+		aRepo.save(newJob.getAddress());
+		
+		return jRepo.saveAndFlush(newJob);
 	}
 
 	@Override
 	public boolean delete(int id) {
 		boolean deleted = false;
-		Optional<Job> jobOpt = repo.findById(id);
+		Optional<Job> jobOpt = jRepo.findById(id);
 		if (jobOpt.isPresent()) {
 			Job job = jobOpt.get();
-			job.setActive(0);
-			repo.save(job);
+			job.setActive(false);
+			jRepo.save(job);
 			deleted = true;
 		}
 		return deleted;
@@ -64,7 +82,7 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public Job updateJob(Job newJob, int id) {
-		Optional<Job> jobOpt = repo.findById(id);
+		Optional<Job> jobOpt = jRepo.findById(id);
 		Job update = null;
 		if (jobOpt.isPresent()) {
 			update = jobOpt.get();
@@ -72,11 +90,11 @@ public class JobServiceImpl implements JobService {
 			update.setActive(newJob.getActive());	
 			if (newJob.getAddress() != null) {update.setAddress(newJob.getAddress());	}
 			if (newJob.getEstimate() > 0) {update.setEstimate(newJob.getEstimate());	}
-			if (newJob.getPaid() != 1) {update.setPaid(newJob.getPaid());	}
+			if (newJob.getPaid() != newJob.getPaid()) {update.setPaid(newJob.getPaid());	}
 			if (newJob.getCustomer() != null) {update.setCustomer(newJob.getCustomer());	}
 			
 		}
-		return repo.saveAndFlush(update);
+		return jRepo.saveAndFlush(update);
 
 	}
 }
