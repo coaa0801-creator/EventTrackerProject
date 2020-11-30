@@ -9,13 +9,13 @@ zip: number;
 phone: number;
 
 constructor(
-  id: number,
-  address: String,
-address2: String,
-city: String,
-state: String,
-zip: number,
-phone: number
+  id?: number,
+  address?: String,
+address2?: String,
+city?: String,
+state?: String,
+zip?: number,
+phone?: number
 ){
  this.id= id;
  this.address= address;
