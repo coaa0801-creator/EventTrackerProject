@@ -1,1 +1,11 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+
+.tableButton{
+  text-align: center;
+}
+
+.header{
+  font-weight: bolder;
+  font-style: oblique;
+  text-align: center;
+}

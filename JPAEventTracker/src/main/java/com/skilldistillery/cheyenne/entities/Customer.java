@@ -1,6 +1,7 @@
 package com.skilldistillery.cheyenne.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -129,6 +130,23 @@ public class Customer {
 
 	public void setCompany(String company) {
 		this.company = company;
+	}
+	
+	public void addJob(Job job) {
+		if (jobs == null) {
+			jobs = new ArrayList<Job>();
+		}
+		if (!jobs.contains(job)) {
+			jobs.add(job);
+			job.addCustomer(this);
+		}
+	}
+
+	public void removeJob(Job job) {
+		if (jobs != null && jobs.contains(job)) {
+			jobs.remove(job);
+			job.removeCustomer(this);
+		}
 	}
 
 	public Customer() {

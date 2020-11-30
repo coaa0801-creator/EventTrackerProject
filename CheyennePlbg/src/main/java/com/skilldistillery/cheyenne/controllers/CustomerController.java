@@ -16,68 +16,68 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.cheyenne.entities.Job;
-import com.skilldistillery.cheyenne.services.JobService;
+import com.skilldistillery.cheyenne.entities.Customer;
+import com.skilldistillery.cheyenne.services.CustomerService;
 
 @CrossOrigin({"*", "http://localhost:4205"})
 @RestController
 @RequestMapping("api")
-public class JobController {
+public class CustomerController {
 	@Autowired
-	private JobService jobSvc;
+	private CustomerService customerSvc;
 	
-	  @GetMapping("jobs")
-	  public List<Job> index(){
-	    return jobSvc.findAllJobs();
+	  @GetMapping("customers")
+	  public List<Customer> index(){
+	    return customerSvc.findAllCustomers();
 	  }
 	  
-	  @GetMapping("jobs/{id}")
-	  public Job show(@PathVariable int id, HttpServletResponse response){
-		  Job job = jobSvc.findById(id);
-		  if (job == null) {
+	  @GetMapping("customers/{id}")
+	  public Customer show(@PathVariable int id, HttpServletResponse response){
+		  Customer Customer = customerSvc.findById(id);
+		  if (Customer == null) {
 			  response.setStatus(404);
 		  }
-		    return jobSvc.findById(id);
+		    return customerSvc.findById(id);
 		  }
 	  
 	  
-		@PostMapping("jobs")
-		public Job addJob(@RequestBody Job userParam, HttpServletRequest request, HttpServletResponse response){
+		@PostMapping("customers")
+		public Customer addCustomer(@RequestBody Customer userParam, HttpServletRequest request, HttpServletResponse response){
 			
 			
 			try {
-				jobSvc.createJob(userParam);
+				customerSvc.createCustomer(userParam);
 				response.setStatus(201);
-				response.setHeader("Location", "api/jobs/" + userParam.getId());
+				response.setHeader("Location", "api/customers/" + userParam.getId());
 			} catch (Exception e) {
 				response.setStatus(400);
 			}
 		  return userParam;
 		}
 	
-		@PutMapping("jobs/{id}")
-		public Job updateJob(@PathVariable int id, @RequestBody Job userParam, HttpServletRequest request, HttpServletResponse response){
+		@PutMapping("customers/{id}")
+		public Customer updateCustomer(@PathVariable int id, @RequestBody Customer userParam, HttpServletRequest request, HttpServletResponse response){
 			
 			
 			try {
-				userParam = jobSvc.updateJob(userParam, id);
+				userParam = customerSvc.updateCustomer(userParam, id);
 				response.setStatus(201);
-				response.setHeader("Location", "api/jobs/" + userParam.getId());
+				response.setHeader("Location", "api/customers/" + userParam.getId());
 			} catch (Exception e) {
 				response.setStatus(400);
 			}
 			return userParam;
 		}
-		@DeleteMapping("jobs/{id}")
-		public void deleteJob(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
+		@DeleteMapping("customers/{id}")
+		public void deleteCustomer(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 			try {
-				boolean delete = jobSvc.delete(id);
+				boolean delete = customerSvc.delete(id);
 				if(delete) {
 				response.setStatus(204);}
 				else {
 				  response.setStatus(404);
 				}
-				response.setHeader("Location", "api/jobs/");
+				response.setHeader("Location", "api/customers/");
 			} catch (Exception e) {
 				response.setStatus(400);
 			}

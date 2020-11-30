@@ -66,6 +66,16 @@ private List<Employee> staff;
 @JsonIgnore
 private List<Part> parts;
 
+public void addCustomer(Customer customer) {
+	if (customer == null) {
+		this.customer = customer;
+	}
+}
+
+public void removeCustomer(Customer customer) {
+	this.customer = null;
+}
+
 
 public int getActive() {
 	return active;

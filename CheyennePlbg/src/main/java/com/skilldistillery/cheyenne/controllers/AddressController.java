@@ -16,68 +16,68 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.cheyenne.entities.Job;
-import com.skilldistillery.cheyenne.services.JobService;
+import com.skilldistillery.cheyenne.entities.Address;
+import com.skilldistillery.cheyenne.services.AddressService;
 
 @CrossOrigin({"*", "http://localhost:4205"})
 @RestController
 @RequestMapping("api")
-public class JobController {
+public class AddressController {
 	@Autowired
-	private JobService jobSvc;
+	private AddressService AddressSvc;
 	
-	  @GetMapping("jobs")
-	  public List<Job> index(){
-	    return jobSvc.findAllJobs();
+	  @GetMapping("addresses")
+	  public List<Address> index(){
+	    return AddressSvc.findAllAddresss();
 	  }
 	  
-	  @GetMapping("jobs/{id}")
-	  public Job show(@PathVariable int id, HttpServletResponse response){
-		  Job job = jobSvc.findById(id);
-		  if (job == null) {
+	  @GetMapping("addresses/{id}")
+	  public Address show(@PathVariable int id, HttpServletResponse response){
+		  Address Address = AddressSvc.findById(id);
+		  if (Address == null) {
 			  response.setStatus(404);
 		  }
-		    return jobSvc.findById(id);
+		    return AddressSvc.findById(id);
 		  }
 	  
 	  
-		@PostMapping("jobs")
-		public Job addJob(@RequestBody Job userParam, HttpServletRequest request, HttpServletResponse response){
+		@PostMapping("addresses")
+		public Address addAddress(@RequestBody Address userParam, HttpServletRequest request, HttpServletResponse response){
 			
 			
 			try {
-				jobSvc.createJob(userParam);
+				AddressSvc.createAddress(userParam);
 				response.setStatus(201);
-				response.setHeader("Location", "api/jobs/" + userParam.getId());
+				response.setHeader("Location", "api/Addresss/" + userParam.getId());
 			} catch (Exception e) {
 				response.setStatus(400);
 			}
 		  return userParam;
 		}
 	
-		@PutMapping("jobs/{id}")
-		public Job updateJob(@PathVariable int id, @RequestBody Job userParam, HttpServletRequest request, HttpServletResponse response){
+		@PutMapping("addresses/{id}")
+		public Address updateAddress(@PathVariable int id, @RequestBody Address userParam, HttpServletRequest request, HttpServletResponse response){
 			
 			
 			try {
-				userParam = jobSvc.updateJob(userParam, id);
+				userParam = AddressSvc.updateAddress(userParam, id);
 				response.setStatus(201);
-				response.setHeader("Location", "api/jobs/" + userParam.getId());
+				response.setHeader("Location", "api/addresses/" + userParam.getId());
 			} catch (Exception e) {
 				response.setStatus(400);
 			}
 			return userParam;
 		}
-		@DeleteMapping("jobs/{id}")
-		public void deleteJob(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
+		@DeleteMapping("addresses/{id}")
+		public void deleteAddress(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 			try {
-				boolean delete = jobSvc.delete(id);
+				boolean delete = AddressSvc.delete(id);
 				if(delete) {
 				response.setStatus(204);}
 				else {
 				  response.setStatus(404);
 				}
-				response.setHeader("Location", "api/jobs/");
+				response.setHeader("Location", "api/addresses/");
 			} catch (Exception e) {
 				response.setStatus(400);
 			}
