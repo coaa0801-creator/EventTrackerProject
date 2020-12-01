@@ -3,6 +3,8 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { Job } from '../models/job';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { Customer } from '../models/customer';
+import { Address } from '../models/address';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +41,23 @@ export class JobService {
     })
   );
 }
+
+update(job: Job, a: Address, c: Customer){
+  job.address = a;
+  job.customer = c;
+  this.url = this.baseUrl + 'api/jobs/' + job.id;
+  return this.http.put<any>(this.url, job, this.httpOptions)
+  .pipe(
+    catchError((err: any) => {
+      console.log(err);
+      return throwError('Error Updating Todo');
+    })
+    );
+
+}
+
+
+
   destroy(data: number) {
     this.url = this.baseUrl + 'api/jobs/' + data;
   return this.http.delete<any>(this.url, this.httpOptions)

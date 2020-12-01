@@ -5,6 +5,7 @@ import { Customer } from './../../models/customer';
 import { Component, OnInit } from '@angular/core';
 import { Job } from 'src/app/models/job';
 import { JobService } from 'src/app/services/job.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-plbg',
@@ -41,6 +42,9 @@ export class PlbgComponent implements OnInit {
   menuExpand = false;
   menuCount = 1;
   newJobAddressCheck = false;
+  editJob = null;
+  editJobAddress = null;
+  editJobCustomer = null;
 
 
 
@@ -63,6 +67,7 @@ export class PlbgComponent implements OnInit {
     );
 
   }
+
   loadAddresses(): void {
     this.aServ.index().subscribe(
       (data) => {
@@ -82,6 +87,13 @@ export class PlbgComponent implements OnInit {
       (err) => {}
     );
   }
+
+setEditJob(j: Job){
+  this.editJob = j;
+  this.editJobAddress = j.address;
+  this.editJobCustomer = j.customer;
+}
+
   setNewJobExistingCustomerAddress(a: Address) {
     for(let i = 0; i < this.newCustomer.addresses.length; i++){
     if(this.newCustomer.id !== undefined && a.id !== this.newCustomer.addresses[i].id){
@@ -167,7 +179,50 @@ export class PlbgComponent implements OnInit {
     // console.log(this.newCustomer);
 
   }
+  updateJobEdit(){
+    this.errors = [];
+    if (this.editJob.name == null) {
+      this.errors.push('Job Name field can not be empty');
+    }
+    if (this.editJob.customer.firstName == null) {
+      this.errors.push('First Name field can not be empty');
+    }
+    if (this.editJob.customer.lastName == null) {
+      this.errors.push('Last Name field can not be empty');
+    }
+    if (this.editJob.address.address == null) {
+      this.errors.push('Street Address field can not be empty');
+    }
+    if (this.editJob.address.city == null) {
+      this.errors.push('City field can not be empty');
+    }
+    if (this.editJob.address.state == null) {
+      this.errors.push('State field can not be empty');
+    }
+    if (this.errors.length == 0) {
+      console.log(this.editJob);
 
+
+      this.jServ.update(this.editJob, this.editJobAddress, this.editJobCustomer).subscribe(
+        (data) => {
+          this.loadJobs();
+          this.selected = null;
+          this.editJob = null;
+          this.updateJob = false;
+
+        },
+        (err) => {}
+        );
+
+
+
+
+
+    }
+
+
+
+  }
 
     createNewJob(){
       this.errors = [];

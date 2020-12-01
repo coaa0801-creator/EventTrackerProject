@@ -89,10 +89,10 @@ public class JobServiceImpl implements JobService {
 			update = jobOpt.get();
 			if (newJob.getName() != null) {update.setName(newJob.getName());	}
 			update.setActive(newJob.getActive());	
-			if (newJob.getAddress() != null) {update.setAddress(newJob.getAddress());	}
+			if (newJob.getAddress() != null) {aRepo.save(newJob.getAddress());update.setAddress(newJob.getAddress());	}
 			if (newJob.getEstimate() > 0) {update.setEstimate(newJob.getEstimate());	}
 			if (newJob.getPaid() != newJob.getPaid()) {update.setPaid(newJob.getPaid());	}
-			if (newJob.getCustomer() != null) {update.setCustomer(newJob.getCustomer());	}
+			if (newJob.getCustomer() != null) {cRepo.save(newJob.getCustomer());update.setCustomer(newJob.getCustomer());	}
 			
 		}
 		return jRepo.saveAndFlush(update);
