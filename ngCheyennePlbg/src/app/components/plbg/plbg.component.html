@@ -1,9 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#e3f2fd;">
-  <a class="navbar-brand" href="#" (click)="jobPage = false"><img src="https://www.symbols.com/images/symbol/1842_home-icon.png" alt="Home" height="25" width="25"></a>
-  <button class="navbar-toggler {{collapsed}}" type="button" (click)='menuHamExpand()' data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+<nav
+  class="navbar navbar-expand-lg navbar-light"
+  style="background-color: #e3f2fd"
+>
+  <a class="navbar-brand" href="#" (click)="jobPage = false"
+    ><img
+      src="https://www.symbols.com/images/symbol/1842_home-icon.png"
+      alt="Home"
+      height="25"
+      width="25"
+  /></a>
+  <button
+    class="navbar-toggler {{ collapsed }}"
+    type="button"
+    (click)="menuHamExpand()"
+    data-toggle="collapse"
+    data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown"
+    aria-expanded="true"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse {{menuShow}}" id="navbarNavDropdown">
+  <div class="collapse navbar-collapse {{ menuShow }}" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" href="#" (click)="jobPage = true">Jobs</a>
@@ -17,65 +35,142 @@
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="employeePage = true">Employees</a>
       </li>
-      <li class="nav-item dropdown {{show}}" (click)="dropdownExpand()">
-        <a class="nav-link dropdown-toggle" name='navbarDropdownMenuLink' href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded='true'>
+      <li class="nav-item dropdown {{ show }}" (click)="dropdownExpand()">
+        <a
+          class="nav-link dropdown-toggle"
+          name="navbarDropdownMenuLink"
+          href="#"
+          id="navbarDropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="true"
+        >
           Departments
         </a>
-        <div class="dropdown-menu {{show}}" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#" (click)="plumbingPage = true">Plumbing</a>
-          <a class="dropdown-item" href="#" (click)="heatingPage = true">Heating</a>
-          <a class="dropdown-item" href="#" (click)="septicPage = true">Septic</a>
+        <div
+          class="dropdown-menu {{ show }}"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <a class="dropdown-item" href="#" (click)="plumbingPage = true"
+            >Plumbing</a
+          >
+          <a class="dropdown-item" href="#" (click)="heatingPage = true"
+            >Heating</a
+          >
+          <a class="dropdown-item" href="#" (click)="septicPage = true"
+            >Septic</a
+          >
         </div>
       </li>
     </ul>
   </div>
 </nav>
-<div *ngIf="!jobPage && !customerPage && !partsPage && !employeePage && !plumbingPage && !heatingPage && !septicPage">
-<div class="header"><h1>Welcome to your personal company <br> management site</h1></div>
-<p></p>
-
-
-
-
+<div
+  *ngIf="
+    !jobPage &&
+    !customerPage &&
+    !partsPage &&
+    !employeePage &&
+    !plumbingPage &&
+    !heatingPage &&
+    !septicPage
+  "
+>
+  <div class="header">
+    <h1>
+      Welcome to your personal company <br />
+      management site
+    </h1>
+  </div>
+  <p></p>
 </div>
 
-
 <div *ngIf="!selected && jobPage && addJob">
-  <div class='errors' *ngIf='errors' >
+  <div class="errors" *ngIf="errors">
     <ul *ngFor="let e of errors">
-      <li>{{e}}</li>
+      <li>{{ e }}</li>
     </ul>
-
   </div>
   <h1 class="newJobHeader">New Job</h1>
-  <form #newJobForm ='ngForm'>
+  <form #newJobForm="ngForm">
+    <label for="name" style="width: 80px">Job Name:</label>
+    <input
+      type="text"
+      name="name"
+      placeholder="Job Name"
+      [(ngModel)]="newJob.name"
+    /><br />
 
-    <label for="name" style="width: 80px;">Job Name:</label>
-    <input type="text" name="name" placeholder="Job Name" [(ngModel)]="newJob.name"><br>
-
-
-
-
-    <br>
-    <input *ngIf="!existingCustomerNewJob" type="checkbox" name="new" (click)='setNewCustomer()' [(ngModel)]="newCustomerAddJob" style="width: 40px;">
-    <label *ngIf="!existingCustomerNewJob" for="new">New Customer </label>&nbsp;&nbsp;
-    <input *ngIf="!newCustomerAddJob" type="checkbox" name="new" (click)='setExistingCustomer()' [(ngModel)]="existingCustomerNewJob" style="width: 40px;">&nbsp;
+    <br />
+    <input
+      *ngIf="!existingCustomerNewJob"
+      type="checkbox"
+      name="new"
+      (click)="setNewCustomer()"
+      [(ngModel)]="newCustomerAddJob"
+      style="width: 40px"
+    />
+    <label *ngIf="!existingCustomerNewJob" for="new">New Customer </label
+    >&nbsp;&nbsp;
+    <input
+      *ngIf="!newCustomerAddJob"
+      type="checkbox"
+      name="new"
+      (click)="setExistingCustomer()"
+      [(ngModel)]="existingCustomerNewJob"
+      style="width: 40px"
+    />&nbsp;
     <label *ngIf="!newCustomerAddJob" for="new">Existing Customer &nbsp;</label>
 
-
-    <div *ngIf='newCustomerAddJob'>
-      <label for="name" style="width: 80px;">Company:</label>
-      <input type="text" name="new" placeholder="Company" [(ngModel)]="newCustomer.company"><br>
-      <label for="name" style="width: 80px;" required>Name:</label>
-      <input type="text" name="new" placeholder="First Name" [(ngModel)]="newCustomer.firstName">&nbsp;
-      <input type="text" name="new" placeholder="Last Name" [(ngModel)]="newCustomer.lastName" required><br>
-      <label for="name" style="width: 80px;">Email:</label>
-      <input type="email" name="new" placeholder="Email" [(ngModel)]="newCustomer.email"><br>
-      <label for="address" style="width: 80px;">Address:</label>
-      <input type="text" name="address" placeholder="Street Address" [(ngModel)]="newAddress.address">&nbsp;
-      <input type="text" name="address2" placeholder="STE, Apt, Unit No." [(ngModel)]="newAddress.address2">&nbsp;
-      <input type="text" name="city" placeholder="City" [(ngModel)]="newAddress.city">&nbsp;
-      <select name='state' [(ngModel)]="newAddress.state">
+    <div *ngIf="newCustomerAddJob">
+      <label for="name" style="width: 80px">Company:</label>
+      <input
+        type="text"
+        name="new"
+        placeholder="Company"
+        [(ngModel)]="newCustomer.company"
+      /><br />
+      <label for="name" style="width: 80px" required>Name:</label>
+      <input
+        type="text"
+        name="new"
+        placeholder="First Name"
+        [(ngModel)]="newCustomer.firstName"
+      />&nbsp;
+      <input
+        type="text"
+        name="new"
+        placeholder="Last Name"
+        [(ngModel)]="newCustomer.lastName"
+        required
+      /><br />
+      <label for="name" style="width: 80px">Email:</label>
+      <input
+        type="email"
+        name="new"
+        placeholder="Email"
+        [(ngModel)]="newCustomer.email"
+      /><br />
+      <label for="address" style="width: 80px">Address:</label>
+      <input
+        type="text"
+        name="address"
+        placeholder="Street Address"
+        [(ngModel)]="newAddress.address"
+      />&nbsp;
+      <input
+        type="text"
+        name="address2"
+        placeholder="STE, Apt, Unit No."
+        [(ngModel)]="newAddress.address2"
+      />&nbsp;
+      <input
+        type="text"
+        name="city"
+        placeholder="City"
+        [(ngModel)]="newAddress.city"
+      />&nbsp;
+      <select name="state" [(ngModel)]="newAddress.state">
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
         <option value="AZ">Arizona</option>
@@ -126,18 +221,27 @@
         <option value="WA">Washington</option>
         <option value="WV">West Virginia</option>
         <option value="WI">Wisconsin</option>
-        <option value="WY">Wyoming</option>
-      </select>&nbsp;
-      <input type="text" name="zip" placeholder="5-Digit Zip Code" [(ngModel)]="newAddress.zip"><br>
-      <label for="phone" style="width: 80px;">Phone #:</label>
-      <input type="text" name="phone" placeholder="10-digit (no dashes)" [(ngModel)]="newAddress.phone">&nbsp;
-
+        <option value="WY">Wyoming</option></select
+      >&nbsp;
+      <input
+        type="text"
+        name="zip"
+        placeholder="5-Digit Zip Code"
+        [(ngModel)]="newAddress.zip"
+      /><br />
+      <label for="phone" style="width: 80px">Phone #:</label>
+      <input
+        type="text"
+        name="phone"
+        placeholder="10-digit (no dashes)"
+        [(ngModel)]="newAddress.phone"
+      />&nbsp;
     </div>
-    <div *ngIf='existingCustomerNewJob'>
+    <div *ngIf="existingCustomerNewJob">
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
-            <td> </td>
+            <td></td>
             <td>Customer ID #</td>
             <td>Company</td>
             <td>Name</td>
@@ -147,37 +251,50 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let c of customers">
-            <td><input type="checkbox" (click)='setNewJobExistingCustomer(c)'></td>
-            <td>{{ c.id}}</td>
-            <td>{{ c.company}}</td>
-            <td>{{ c.firstName }} {{c.lastName}}</td>
-            <td><ul *ngFor="let a of c.addresses" style="list-style-type:none;"><li>{{ a.address}} {{a.address2}} {{a.city}}, {{a.state}} {{a.zip}}<br><input type="checkbox" name="existingAddress" (click)='setNewJobExistingCustomerAddress(a)'><label for="existingAddress"></label></li></ul></td>
-            <td>{{ c.email}}</td>
-            <td>{{ c.addresses[0].phone}}</td>
+          <tr *ngFor="let c of customers; let i = index" [attr.data-index]="i">
+            <td>
+              <input type="checkbox" (click)="setNewJobExistingCustomer(c)" />
+            </td>
+            <td>{{ c.id }}</td>
+            <td>{{ c.company }}</td>
+            <td>{{ c.firstName }} {{ c.lastName }}</td>
+            <td>
+              <ul *ngFor="let a of c.addresses" style="list-style-type: none">
+                <li>
+                  {{ a.address }} {{ a.address2 }} {{ a.city }}, {{ a.state }}
+                  {{ a.zip }}<br /><input
+                    type="checkbox"
+                    name="existingAddress"
+                    checked="{{ newJobAddressCheck }}"
+                    (click)="setNewJobExistingCustomerAddress(a)"
+                    ngModel
+                  /><label for="existingAddress">Use this Address</label>
+                </li>
+              </ul>
+            </td>
+            <td>{{ c.email }}</td>
+            <td>{{ c.addresses[0].phone }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div>
-
-
-    </div>
-    <button (click)='addJob = false; existingCustomerNewJob = false; newCustomerAddJob = false'>Back</button>
-    <input type="button" value="Create New Job" (click)="createNewJob()">
-
-
+    <div></div>
+    <button
+      (click)="
+        addJob = false;
+        existingCustomerNewJob = false;
+        newCustomerAddJob = false
+      "
+    >
+      Back
+    </button>
+    <input type="button" value="Create New Job" (click)="createNewJob()" />
   </form>
 </div>
 
-<div *ngIf='!selected && jobPage && !addJob'>
-  <button (click)='jobPage = false'>Back</button>
-  <button (click)='addJob = true'>Add Job</button>
-
-
-
-
-
+<div *ngIf="!selected && jobPage && !addJob">
+  <button (click)="jobPage = false">Back</button>
+  <button (click)="addJob = true">Add Job</button>
 
   <table class="table table-striped table-bordered">
     <thead>
@@ -191,25 +308,31 @@
     </thead>
     <tbody>
       <tr *ngFor="let j of jobs" (click)="setJob(j)">
-        <td>{{ j.id}}</td>
+        <td>{{ j.id }}</td>
         <td>{{ j.name }}</td>
-        <td>{{ j.address.address}} {{j.address.address2}} {{j.address.city}}, {{j.address.state}} {{j.address.zip}}</td>
-        <td class="tableButton"><input type="button" value='Update Job' (click)='updateJob = true'></td>
-        <td class="tableButton"><input type="button" value='Delete Job' (click)='deleteJob(j.id)'></td>
+        <td>
+          {{ j.address.address }} {{ j.address.address2 }} {{ j.address.city }},
+          {{ j.address.state }} {{ j.address.zip }}
+        </td>
+        <td class="tableButton">
+          <input type="button" value="Update Job" (click)="updateJob = true" />
+        </td>
+        <td class="tableButton">
+          <input type="button" value="Delete Job" (click)="deleteJob(j.id)" />
+        </td>
       </tr>
     </tbody>
   </table>
-  </div>
+</div>
+
 <div *ngIf="selected && jobPage && updateJob">
+<form #updateForm='ngForm'></form>
+
+
+
 
 </div>
 
-
-  <div *ngIf="selected && jobPage">
-<button (click)='selected = null'>Back</button>
-
-
-
-
-
-  </div>
+<div *ngIf="selected && jobPage">
+  <button (click)="selected = null">Back</button>
+</div>

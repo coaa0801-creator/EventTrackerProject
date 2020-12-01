@@ -20,6 +20,7 @@ export class JobService {
   };
 
   index(): Observable<Job[]> {
+    this.url = this.baseUrl + 'api/jobs';
     return this.http.get<Job[]>(this.url + '?sorted=true')
       .pipe(
         catchError((err: any) => {

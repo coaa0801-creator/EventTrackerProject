@@ -76,6 +76,7 @@ public class JobServiceImpl implements JobService {
 			job.setActive(false);
 			jRepo.save(job);
 			deleted = true;
+			return deleted;
 		}
 		return deleted;
 	}

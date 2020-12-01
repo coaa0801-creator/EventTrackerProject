@@ -40,7 +40,10 @@ export class PlbgComponent implements OnInit {
   menuShow = '';
   menuExpand = false;
   menuCount = 1;
-  lastAddressIndex = (this.addresses.length-1);
+  newJobAddressCheck = false;
+
+
+
   constructor(private jServ: JobService, private cServ: CustomerService, private aServ: AddressService) {}
 
   ngOnInit(): void {
@@ -80,22 +83,28 @@ export class PlbgComponent implements OnInit {
     );
   }
   setNewJobExistingCustomerAddress(a: Address) {
-    if (this.newAddress.id !== undefined && a.id !== this.newAddress.id) {
+    for(let i = 0; i < this.newCustomer.addresses.length; i++){
+    if(this.newCustomer.id !== undefined && a.id !== this.newCustomer.addresses[i].id){
+      alert("This address does not belong to that Customer. Please choose a valid address");
+      a = new Address();
+      this.newJobAddressCheck = false;
+    } else if (this.newAddress.id !== undefined && a.id !== this.newAddress.id) {
       let response = confirm(
         'You have already made a selection. Would you like to assign this Address to the current Job?'
-      );
-      if (response) {
-        this.newAddress= a;
+        );
+        if (response) {
+          this.newAddress= a;
+        }
       }
-    }
-    if (a == this.newJob.address) {
-      this.newAddress = new Address();
-    } else {
-      this.newAddress = a;
-    }
+      if (a == this.newJob.address) {
+        this.newAddress = new Address();
+      } else {
+        this.newAddress = a;
+      }
+  }
     // console.log(this.newAddress);
 
-  }
+}
   setJob(job) {
     this.selected = job;
   }
@@ -161,6 +170,7 @@ export class PlbgComponent implements OnInit {
 
 
     createNewJob(){
+      this.errors = [];
       if (this.newJob.name == null) {
         this.errors.push('Job Name field can not be empty');
       }
@@ -181,15 +191,16 @@ export class PlbgComponent implements OnInit {
       }
 
       if (this.errors.length == 0) {
-      this.newJob.address = this.newAddress;
-      this.newJob.customer = this.newCustomer;
-      console.log(this.newJob.customer);
 
-console.log(this.newJob.address);
+        this.newJob.address = this.newAddress;
+        this.newJob.customer = this.newCustomer;
+
 
       this.jServ.create(this.newJob).subscribe(
         (data) => {
           this.loadJobs();
+          this.loadAddresses();
+          this.loadCustomers();
           this.newAddress = new Address();
           this.newCustomer = new Customer();
           this.newJob = new Job();
@@ -207,13 +218,20 @@ console.log(this.newJob.address);
 
 
 
-deleteJob(id: number){
-let response = false;
-response = confirm("Are you sure you want to delete the " + this.jobs[id - 1].name + " job?");
-if (response){
-  this.jServ.destroy(id).subscribe(
-    (data) => {
-      this.loadJobs();
+    deleteJob(id: number){
+      let response = false;
+      response = confirm("Are you sure you want to delete the " + this.jobs[this.jobs.length - 1].name + " job?");
+      if (response){
+        this.jServ.destroy(id).subscribe(
+          (data) => {
+            this.newAddress = new Address();
+            this.newCustomer = new Customer();
+            this.newJob = new Job();
+            this.addJob = false;
+            this.existingCustomerNewJob = false;
+            this.newCustomerAddJob = false;
+            this.selected = null;
+            this.loadJobs();
     },
     (err) => {}
     );
