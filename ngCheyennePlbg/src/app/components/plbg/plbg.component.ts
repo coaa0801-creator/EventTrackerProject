@@ -5,13 +5,13 @@ import { Customer } from './../../models/customer';
 import { Component, OnInit } from '@angular/core';
 import { Job } from 'src/app/models/job';
 import { JobService } from 'src/app/services/job.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-plbg',
   templateUrl: './plbg.component.html',
   styleUrls: ['./plbg.component.css'],
 })
+
 export class PlbgComponent implements OnInit {
   jobs: Job[] = [];
   customers: Customer[] = [];
@@ -114,7 +114,6 @@ setEditJob(j: Job){
         this.newAddress = a;
       }
   }
-    // console.log(this.newAddress);
 
 }
   setJob(job) {

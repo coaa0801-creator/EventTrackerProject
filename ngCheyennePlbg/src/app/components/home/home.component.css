@@ -1,0 +1,7 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.header{
+  font-weight: bolder;
+  font-style: oblique;
+  text-align: center;
+}
