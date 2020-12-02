@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,7 +41,8 @@ public class Customer {
 	
 	private Boolean active = true;
 	
-	@OneToMany(mappedBy="customer")
+	@OneToMany
+	@JoinColumn(name="customer_id")
 	private List<Address> addresses;
 	
 	private String company;
@@ -145,22 +147,22 @@ public class Customer {
 			job.removeCustomer(this);
 		}
 	}
-	public void addAddress(Address address) {
-		if (addresses == null) {
-			addresses = new ArrayList<Address>();
-		}
-		if (!addresses.contains(address)) {
-			addresses.add(address);
-			address.addCustomer(this);
-		}
-	}
-	
-	public void removeAddress(Address address) {
-		if (addresses != null && addresses.contains(address)) {
-			addresses.remove(address);
-			address.removeCustomer(this);
-		}
-	}
+//	public void addAddress(Address address) {
+//		if (addresses == null) {
+//			addresses = new ArrayList<Address>();
+//		}
+//		if (!addresses.contains(address)) {
+//			addresses.add(address);
+//			address.addCustomer(this);
+//		}
+//	}
+//	
+//	public void removeAddress(Address address) {
+//		if (addresses != null && addresses.contains(address)) {
+//			addresses.remove(address);
+//			address.removeCustomer(this);
+//		}
+//	}
 
 	public Customer() {
 		super();

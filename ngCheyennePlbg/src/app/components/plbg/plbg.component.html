@@ -240,10 +240,14 @@
       "
     >
       Back
-    </button>
+    </button>&nbsp;
     <input type="button" value="Create New Job" (click)="createNewJob()" />
   </form>
 </div>
+
+
+
+
 
 <div *ngIf="selected && updateJob">
   <div class="errors" *ngIf="errors">
@@ -378,7 +382,7 @@
     />
     <br />
     <button (click)="selected = null; updateJob = false">Back</button
-    ><button type="button" name="submit" (click)="updateJobEdit()">Save</button>
+    >&nbsp;<button type="button" name="submit" (click)="updateJobEdit()">Save</button>
   </form>
 </div>
 

@@ -37,6 +37,19 @@ public class Permit {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 	
+	
+	
+	public void addJob(Job job) {
+		if (this.job == null) {
+			this.job = job;
+		}
+	}
+
+	public void removeJob(Job job) {
+		if(this.job == job)
+		this.job = null;
+	}
+	
 	@Override
 	public String toString() {
 		return "Permit [id=" + id + ", identifier=" + identifier + ", type=" + type + ", job=" + job + ", createDate="

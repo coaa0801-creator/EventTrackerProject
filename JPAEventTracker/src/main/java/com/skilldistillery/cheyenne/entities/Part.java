@@ -25,6 +25,7 @@ private String name;
 
 private Double price;
 
+private String image;
 
 @ManyToOne
 @JoinColumn(name="job_id")
@@ -50,6 +51,29 @@ private LocalDateTime createDate;
 @Column(name = "last_update")
 @UpdateTimestamp
 private LocalDateTime lastUpdate;
+
+
+public void addJobType(Department jobType) {
+	if (this.jobType == null) {
+		this.jobType = jobType;
+		}
+	}
+public void removeJobType(Department jobType) {
+	if (jobType == this.jobType) {
+		this.jobType = null;
+	}
+}
+public void addJob(Job job) {
+	if (this.job == null) {
+		this.job = job;
+	}
+}
+public void removeJob(Job job) {
+	if (job == this.job) {
+		this.job = null;
+	}
+}
+
 
 
 public Part() {
@@ -163,6 +187,12 @@ public LocalDateTime getLastUpdate() {
 
 public void setLastUpdate(LocalDateTime lastUpdate) {
 	this.lastUpdate = lastUpdate;
+}
+public String getImage() {
+	return image;
+}
+public void setImage(String image) {
+	this.image = image;
 }
 
 }

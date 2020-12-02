@@ -45,11 +45,13 @@ export class JobService {
 update(job: Job, a: Address, c: Customer){
   job.address = a;
   job.customer = c;
+
   this.url = this.baseUrl + 'api/jobs/' + job.id;
   return this.http.put<any>(this.url, job, this.httpOptions)
   .pipe(
     catchError((err: any) => {
       console.log(err);
+      location.reload();
       return throwError('Error Updating Todo');
     })
     );

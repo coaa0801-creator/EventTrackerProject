@@ -114,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `part` (
   `available` TINYINT(4) NOT NULL DEFAULT '1',
   `ship_time` INT NULL,
   `department_id` INT NOT NULL,
+  `image` VARCHAR(500) NULL,
   `create_date` DATETIME NULL,
   `last_update` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -310,7 +311,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cheyplbgdb`;
-INSERT INTO `part` (`id`, `name`, `price`, `job_id`, `condition`, `available`, `ship_time`, `department_id`, `create_date`, `last_update`) VALUES (1, '8FT PVC 3\"', '20.99', 1, 'New', 0, NULL, 1, NULL, NULL);
+INSERT INTO `part` (`id`, `name`, `price`, `job_id`, `condition`, `available`, `ship_time`, `department_id`, `image`, `create_date`, `last_update`) VALUES (1, '8FT PVC 3\"', '20.99', 1, 'New', 0, 7, 1, 'https://m.media-amazon.com/images/I/61BI8gtFNVL.jpg', NULL, NULL);
 
 COMMIT;
 

@@ -1,5 +1,6 @@
 package com.skilldistillery.cheyenne.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -35,7 +36,57 @@ public class Department {
 	
 	
 	
+	public void addPart(Part r) {
+		if (parts == null) {
+			parts = new ArrayList<Part>();
+		}
+		if (!parts.contains(r)) {
+			parts.add(r);
+			r.addJobType(this);
+		}
+	}
 	
+	
+	public void removePart(Part r) {
+		if (parts != null && parts.contains(r)) {
+			parts.remove(r);
+			r.removeJobType(this);
+		}
+	}
+	public void addEmployee(Employee e) {
+		if (staff == null) {
+			staff = new ArrayList<Employee>();
+		}
+		if (!staff.contains(e)) {
+			staff.add(e);
+			e.addJobType(this);
+		}
+	}
+
+	public void removeEmployee(Employee jobType) {
+		if (staff != null && staff.contains(jobType)) {
+			staff.remove(jobType);
+			jobType.removeJobType(this);
+		}
+	}
+	
+	
+	public void addJob(Job job) {
+		if (jobs == null) {
+			jobs = new ArrayList<Job>();
+		}
+		if (!jobs.contains(job)) {
+			jobs.add(job);
+			job.addJobType(this);
+		}
+	}
+
+	public void removeJob(Job job) {
+		if (jobs != null && jobs.contains(job)) {
+			jobs.remove(job);
+			job.removeJobType(this);
+		}
+	}
 	
 	public List<Job> getJobs() {
 		return jobs;

@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.cheyenne.entities.Address;
 import com.skilldistillery.cheyenne.repositories.AddressRepository;
+import com.skilldistillery.cheyenne.repositories.CustomerRepository;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 	@Autowired
 	private AddressRepository repo;
+	@Autowired
+	private CustomerRepository cRepo;
 
 	@Override
 	public List<Address> findAllAddresss() {
@@ -32,6 +35,10 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address createAddress(Address newAddress) {
+//		if(newAddress.getCustomer() != null && !newAddress.getCustomer().getAddresses().contains(newAddress)) {
+//			newAddress.getCustomer().addAddress(newAddress);
+//			cRepo.save(newAddress.getCustomer());
+//		}
 		return repo.saveAndFlush(newAddress);
 	}
 
@@ -41,6 +48,8 @@ public class AddressServiceImpl implements AddressService {
 		Optional<Address> addressOpt = repo.findById(id);
 		if (addressOpt.isPresent()) {
 			Address address = addressOpt.get();
+//			address.getCustomer().removeAddress(address);
+//			cRepo.saveAndFlush(address.getCustomer());
 			repo.delete(address);
 			deleted = true;
 		}
@@ -59,6 +68,7 @@ public class AddressServiceImpl implements AddressService {
 			if (newAddress.getState() != null) {update.setState(newAddress.getState());	}
 			if (newAddress.getZip() != null) {update.setZip(newAddress.getZip());	}
 			if (newAddress.getPhone() != null) {update.setPhone(newAddress.getPhone());	}
+//			if (newAddress.getCustomer() != null) {cRepo.save(newAddress.getCustomer());    update.setCustomer(newAddress.getCustomer());	}
 			
 		}
 		return repo.saveAndFlush(update);

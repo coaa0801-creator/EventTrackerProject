@@ -1,6 +1,7 @@
 package com.skilldistillery.cheyenne.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -66,6 +67,25 @@ private List<Employee> staff;
 @JsonIgnore
 private List<Part> parts;
 
+
+public void addPart(Part r) {
+	if (parts == null) {
+		parts = new ArrayList<Part>();
+	}
+	if (!parts.contains(r)) {
+		parts.add(r);
+		r.addJob(this);
+	}
+}
+
+
+public void removePart(Part r) {
+	if (parts != null && parts.contains(r)) {
+		parts.remove(r);
+		r.removeJob(this);
+	}
+}
+
 public void addCustomer(Customer customer) {
 	if (customer == null) {
 		this.customer = customer;
@@ -73,9 +93,60 @@ public void addCustomer(Customer customer) {
 }
 
 public void removeCustomer(Customer customer) {
-	this.customer = null;
+	if(customer == this.customer) {
+		this.customer = null;		
+	}
 }
 
+public void addPermit(Permit permit) {
+	if (permits == null) {
+		permits = new ArrayList<Permit>();
+	}
+	if (!permits.contains(permit)) {
+		permits.add(permit);
+		permit.addJob(this);
+	}
+}
+
+public void removePermit(Permit permit) {
+	if (permits != null && permits.contains(permit)) {
+		permits.remove(permit);
+		permit.removeJob(this);
+	}
+}
+public void addEmployee(Employee e) {
+	if (staff == null) {
+		staff = new ArrayList<Employee>();
+	}
+	if (!staff.contains(e)) {
+		staff.add(e);
+		e.addJob(this);
+	}
+}
+
+public void removeEmployee(Employee jobType) {
+	if (staff != null && staff.contains(jobType)) {
+		staff.remove(jobType);
+		jobType.removeJob(this);
+	}
+}
+
+public void addJobType(Department jobType) {
+	if (jobTypes == null) {
+		jobTypes = new ArrayList<Department>();
+	}
+	if (!jobTypes.contains(jobType)) {
+		jobTypes.add(jobType);
+		jobType.addJob(this);
+	}
+}
+
+public void removeJobType(Department jobType) {
+	if (jobTypes != null && jobTypes.contains(jobType)) {
+		jobTypes.remove(jobType);
+		jobType.removeJob(this);
+	}
+}
 
 public Boolean getActive() {
 	return active;
@@ -184,7 +255,7 @@ public void setName(String name) {
 @Override
 public String toString() {
 	return "Job [id=" + id + ", name=" + name + ", active=" + active + ", paid=" + paid + ", createDate=" + createDate
-			+ ", lastUpdate=" + lastUpdate + ", estimate=" + estimate + ", customer=" + customer + ", address="
+			+ ", lastUpdate=" + lastUpdate + ", estimate=" + estimate + ", address="
 			+ address + ", staff=" + staff + "]";
 }
 

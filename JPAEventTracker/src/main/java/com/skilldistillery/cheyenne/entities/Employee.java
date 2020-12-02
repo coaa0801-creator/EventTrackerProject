@@ -1,5 +1,6 @@
 package com.skilldistillery.cheyenne.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -43,6 +44,44 @@ public class Employee {
 	@ManyToMany(mappedBy="staff")
 	@JsonIgnore
 	private List<Job> jobs;
+	
+	
+	
+	
+	public void addJob(Job job) {
+		if (jobs == null) {
+			jobs = new ArrayList<Job>();
+		}
+		if (!jobs.contains(job)) {
+			jobs.add(job);
+			job.addEmployee(this);
+		}
+	}
+
+	public void removeJob(Job job) {
+		if (jobs != null && jobs.contains(job)) {
+			jobs.remove(job);
+			job.removeEmployee(this);
+		}
+	}
+	
+	
+	public void addJobType(Department jobType) {
+		if (jobTypes == null) {
+			jobTypes = new ArrayList<Department>();
+		}
+		if (!jobTypes.contains(jobType)) {
+			jobTypes.add(jobType);
+			jobType.addEmployee(this);
+		}
+	}
+
+	public void removeJobType(Department jobType) {
+		if (jobTypes != null && jobTypes.contains(jobType)) {
+			jobTypes.remove(jobType);
+			jobType.removeEmployee(this);
+		}
+	}
 
 	@Override
 	public String toString() {

@@ -61,7 +61,7 @@ export class PlbgComponent implements OnInit {
     this.jServ.index().subscribe(
       (data) => {
         this.jobs = data;
-        console.log(this.jobs);
+        // console.log(this.jobs);
       },
       (err) => {}
     );
@@ -72,7 +72,7 @@ export class PlbgComponent implements OnInit {
     this.aServ.index().subscribe(
       (data) => {
         this.addresses = data;
-        console.log(this.addresses);
+        // console.log(this.addresses);
       },
       (err) => {}
     );
@@ -89,9 +89,13 @@ export class PlbgComponent implements OnInit {
   }
 
 setEditJob(j: Job){
-  this.editJob = j;
-  this.editJobAddress = j.address;
-  this.editJobCustomer = j.customer;
+  this.editJob = Object.assign({},j);
+  // console.log(j.customer);
+
+  this.editJobAddress = this.editJob.address;
+  // console.log(this.editJobAddress.customer);
+
+  this.editJobCustomer = this.editJob.customer;
 }
 
   setNewJobExistingCustomerAddress(a: Address) {
@@ -199,7 +203,9 @@ setEditJob(j: Job){
       this.errors.push('State field can not be empty');
     }
     if (this.errors.length == 0) {
-      console.log(this.editJob);
+
+
+
 
 
       this.jServ.update(this.editJob, this.editJobAddress, this.editJobCustomer).subscribe(

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.cheyenne.entities.Address;
 import com.skilldistillery.cheyenne.entities.Job;
 import com.skilldistillery.cheyenne.repositories.AddressRepository;
 import com.skilldistillery.cheyenne.repositories.CustomerRepository;
@@ -57,10 +58,10 @@ public class JobServiceImpl implements JobService {
 		if(newJob.getCustomer() != null) {
 				cRepo.saveAndFlush(newJob.getCustomer());
 			}
-		newJob.getAddress().setCustomer(newJob.getCustomer());
-		if(!newJob.getCustomer().getAddresses().contains(newJob.getAddress())) {
-			newJob.getCustomer().addAddress(newJob.getAddress());
-		}
+//		newJob.getAddress().setCustomer(newJob.getCustomer());
+//		if(!newJob.getCustomer().getAddresses().contains(newJob.getAddress())) {
+//			newJob.getCustomer().addAddress(newJob.getAddress());
+//		}
 		cRepo.save(newJob.getCustomer());
 		aRepo.save(newJob.getAddress());
 		
@@ -87,12 +88,17 @@ public class JobServiceImpl implements JobService {
 		Job update = null;
 		if (jobOpt.isPresent()) {
 			update = jobOpt.get();
+			if (newJob.getCustomer() != null) {
+				for (Address a : newJob.getCustomer().getAddresses()) {
+					aRepo.saveAndFlush(a);
+					
+				}
+				cRepo.saveAndFlush(newJob.getCustomer());update.setCustomer(newJob.getCustomer());	}
 			if (newJob.getName() != null) {update.setName(newJob.getName());	}
 			update.setActive(newJob.getActive());	
-			if (newJob.getAddress() != null) {aRepo.save(newJob.getAddress());update.setAddress(newJob.getAddress());	}
+			if (newJob.getAddress() != null) {aRepo.saveAndFlush(newJob.getAddress());update.setAddress(newJob.getAddress());	}
 			if (newJob.getEstimate() > 0) {update.setEstimate(newJob.getEstimate());	}
 			if (newJob.getPaid() != newJob.getPaid()) {update.setPaid(newJob.getPaid());	}
-			if (newJob.getCustomer() != null) {cRepo.save(newJob.getCustomer());update.setCustomer(newJob.getCustomer());	}
 			
 		}
 		return jRepo.saveAndFlush(update);
