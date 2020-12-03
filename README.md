@@ -39,9 +39,9 @@ http://localhost:8083/
 | Void              	| Delete api/departments/{id}            	| Delete/Deactivate a Department                      	|
 | List< Address > 	  | GET api/addresses                    	| Gets all Addresses                     	|
 | Address       	    | GET api/addresses/{id}            	    | Gets one Address by id                	|
-| Address           	| PUT api/addresses/{id}               	| Update a Address                      	|
-| Address           	| POST api/addresses                   	| Add a Address                         	|
-| Void              	| Delete api/addresses/{id}            	| Delete/Deactivate a Address                      	|
+| Address           	| PUT api/addresses/{id}               	| Update an Address                      	|
+| Address           	| POST api/addresses                   	| Add an Address                         	|
+| Void              	| Delete api/addresses/{id}            	| Delete/Deactivate an Address                      	|
 | List< Permit > 	  | GET api/permits                    	| Gets all Permits                     	|
 | Permit       	    | GET api/permits/{id}            	    | Gets one Permit by id                	|
 | Permit           	| PUT api/permits/{id}               	| Update a Permit                      	|
@@ -49,16 +49,16 @@ http://localhost:8083/
 | Void              	| Delete api/permits/{id}            	| Delete/Deactivate a Permit                      	|
 | List< Employee > 	  | GET api/employees                    	| Gets all Employees                     	|
 | Employee       	    | GET api/employees/{id}            	    | Gets one Employee by id                	|
-| Employee           	| PUT api/employees/{id}               	| Update a Employee                      	|
-| Employee           	| POST api/employees                   	| Add a Employee                         	|
-| Void              	| Delete api/employees/{id}            	| Delete/Deactivate a Employee                      	|
+| Employee           	| PUT api/employees/{id}               	| Update an Employee                      	|
+| Employee           	| POST api/employees                   	| Add an Employee                         	|
+| Void              	| Delete api/employees/{id}            	| Delete/Deactivate an Employee                      	|
 
 
 
 ## Struggles
 The only major issue I encountered was JPA ignoring default values from the DB. Utilized some instructor and colleague help to solve the issue. Everything else came together very quickly, I just need to take it a step further with additional repositories and service interfaces to add additional search and recall mobility.
 
-Multiple Entity simultaneous updates. 
+Multiple Entity simultaneous updates.
 
 I really look forward to the continued work on this project. Going to be a little bit of a pet for a while as I continue to build it out.
 
