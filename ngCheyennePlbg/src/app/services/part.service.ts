@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Part } from '../models/part';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class PartService {
   constructor(private http: HttpClient) { }
 
   baseUrl = 'http://localhost:8083/';
-  url = this.baseUrl + 'api/parts'
+  url = environment.baseUrl + 'api/parts'
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -21,7 +22,7 @@ export class PartService {
   };
 
   index(): Observable<Part[]> {
-    this.url = this.baseUrl + 'api/parts'
+    this.url = environment.baseUrl + 'api/parts'
     return this.http.get<Part[]>(this.url + '?sorted=true')
       .pipe(
         catchError((err: any) => {
@@ -32,7 +33,7 @@ export class PartService {
   }
 
   create(data: Part) {
-    this.url = this.baseUrl + 'api/parts'
+    this.url = environment.baseUrl + 'api/parts'
   return this.http.post<any>(this.url, data, this.httpOptions)  .pipe(
     catchError((err: any) => {
       console.log(err);

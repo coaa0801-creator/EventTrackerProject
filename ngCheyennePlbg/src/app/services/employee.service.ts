@@ -2,6 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Employee } from '../models/employee';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Employee } from '../models/employee';
 })
 export class EmployeeService {
   baseUrl = 'http://localhost:8083/';
-  url = this.baseUrl + 'api/employees'
+  url = environment.baseUrl + 'api/employees'
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -21,7 +22,7 @@ export class EmployeeService {
 
 
   index(): Observable<Employee[]> {
-    this.url = this.baseUrl + 'api/employees'
+    this.url = environment.baseUrl + 'api/employees'
     return this.http.get<Employee[]>(this.url + '?sorted=true')
       .pipe(
         catchError((err: any) => {
@@ -32,7 +33,7 @@ export class EmployeeService {
   }
 
   create(data: Employee) {
-    this.url = this.baseUrl + 'api/employees'
+    this.url = environment.baseUrl + 'api/employees'
   return this.http.post<any>(this.url, data, this.httpOptions)  .pipe(
     catchError((err: any) => {
       console.log(err);

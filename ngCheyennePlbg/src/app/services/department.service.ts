@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Department } from '../models/department';
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Department } from '../models/department';
 export class DepartmentService {
 
   baseUrl = 'http://localhost:8083/';
-  url = this.baseUrl + 'api/departments'
+  url = environment.baseUrl + 'api/departments'
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -22,7 +23,7 @@ export class DepartmentService {
 
 
   index(): Observable<Department[]> {
-    this.url = this.baseUrl + 'api/departments'
+    this.url = environment.baseUrl + 'api/departments'
     return this.http.get<Department[]>(this.url + '?sorted=true')
       .pipe(
         catchError((err: any) => {
@@ -33,7 +34,7 @@ export class DepartmentService {
   }
 
   create(data: Department) {
-    this.url = this.baseUrl + 'api/departments'
+    this.url = environment.baseUrl + 'api/departments'
   return this.http.post<any>(this.url, data, this.httpOptions)  .pipe(
     catchError((err: any) => {
       console.log(err);

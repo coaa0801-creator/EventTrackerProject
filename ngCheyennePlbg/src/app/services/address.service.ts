@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Address } from './../models/address';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,8 +10,7 @@ import { Observable, throwError } from 'rxjs';
 export class AddressService {
 
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:8083/';
-  url = this.baseUrl + 'api/addresses'
+  url = environment.baseUrl + 'api/addresses'
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -19,7 +19,7 @@ export class AddressService {
   };
 
   index(): Observable<Address[]> {
-    this.url = this.baseUrl + 'api/addresses'
+    this.url = environment.baseUrl + 'api/addresses'
     return this.http.get<Address[]>(this.url + '?sorted=true')
       .pipe(
         catchError((err: any) => {
@@ -30,7 +30,7 @@ export class AddressService {
   }
 
   create(data: Address) {
-    this.url = this.baseUrl + 'api/addresses'
+    this.url = environment.baseUrl + 'api/addresses'
   return this.http.post<any>(this.url, data, this.httpOptions)  .pipe(
     catchError((err: any) => {
       console.log(err);

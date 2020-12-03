@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Job } from '../models/job';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Customer } from '../models/customer';
 import { Address } from '../models/address';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class JobService {
 
   constructor(private http: HttpClient) { }
   baseUrl = 'http://localhost:8083/';
-  url = this.baseUrl + 'api/jobs';
+  url = environment.baseUrl + 'api/jobs';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -22,7 +23,7 @@ export class JobService {
   };
 
   index(): Observable<Job[]> {
-    this.url = this.baseUrl + 'api/jobs';
+    this.url = environment.baseUrl + 'api/jobs';
     return this.http.get<Job[]>(this.url + '?sorted=true')
       .pipe(
         catchError((err: any) => {
@@ -32,7 +33,7 @@ export class JobService {
       );
   }
   create(data: Job) {
-    this.url = this.baseUrl + 'api/jobs';
+    this.url = environment.baseUrl + 'api/jobs';
   return this.http.post<any>(this.url, data, this.httpOptions)
   .pipe(
     catchError((err: any) => {
@@ -46,7 +47,7 @@ update(job: Job, a: Address, c: Customer){
   job.address = a;
   job.customer = c;
 
-  this.url = this.baseUrl + 'api/jobs/' + job.id;
+  this.url = environment.baseUrl + 'api/jobs/' + job.id;
   return this.http.put<any>(this.url, job, this.httpOptions)
   .pipe(
     catchError((err: any) => {
@@ -61,7 +62,7 @@ update(job: Job, a: Address, c: Customer){
 
 
   destroy(data: number) {
-    this.url = this.baseUrl + 'api/jobs/' + data;
+    this.url = environment.baseUrl + 'api/jobs/' + data;
   return this.http.delete<any>(this.url, this.httpOptions)
   .pipe(
     catchError((err: any) => {
