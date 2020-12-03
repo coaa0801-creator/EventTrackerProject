@@ -22,6 +22,36 @@ http://localhost:8083/
 | Job           	| PUT api/jobs/{id}               	| Update a Job                      	|
 | Job           	| POST api/jobs                   	| Add a Job                         	|
 | Void              	| Delete api/jobs/{id}            	| Delete/Deactivate a Job                      	|
+| List< Customer > 	  | GET api/customers                    	| Gets all Customers                     	|
+| Customer       	    | GET api/customers/{id}            	    | Gets one Customer by id                	|
+| Customer           	| PUT api/customers/{id}               	| Update a Customer                      	|
+| Customer           	| POST api/customers                   	| Add a Customer                         	|
+| Void              	| Delete api/customers/{id}            	| Delete/Deactivate a Customer                      	|
+| List< Part > 	  | GET api/parts                    	| Gets all Parts                     	|
+| Part       	    | GET api/parts/{id}            	    | Gets one Part by id                	|
+| Part           	| PUT api/parts/{id}               	| Update a Part                      	|
+| Part           	| POST api/parts                   	| Add a Part                         	|
+| Void              	| Delete api/parts/{id}            	| Delete/Deactivate a Part                      	|
+| List< Department > 	  | GET api/departments                    	| Gets all Departments                     	|
+| Department       	    | GET api/departments/{id}            	    | Gets one Department by id                	|
+| Department           	| PUT api/departments/{id}               	| Update a Department                      	|
+| Department           	| POST api/departments                   	| Add a Department                         	|
+| Void              	| Delete api/departments/{id}            	| Delete/Deactivate a Department                      	|
+| List< Address > 	  | GET api/addresses                    	| Gets all Addresses                     	|
+| Address       	    | GET api/addresses/{id}            	    | Gets one Address by id                	|
+| Address           	| PUT api/addresses/{id}               	| Update a Address                      	|
+| Address           	| POST api/addresses                   	| Add a Address                         	|
+| Void              	| Delete api/addresses/{id}            	| Delete/Deactivate a Address                      	|
+| List< Permit > 	  | GET api/permits                    	| Gets all Permits                     	|
+| Permit       	    | GET api/permits/{id}            	    | Gets one Permit by id                	|
+| Permit           	| PUT api/permits/{id}               	| Update a Permit                      	|
+| Permit           	| POST api/permits                   	| Add a Permit                         	|
+| Void              	| Delete api/permits/{id}            	| Delete/Deactivate a Permit                      	|
+| List< Employee > 	  | GET api/employees                    	| Gets all Employees                     	|
+| Employee       	    | GET api/employees/{id}            	    | Gets one Employee by id                	|
+| Employee           	| PUT api/employees/{id}               	| Update a Employee                      	|
+| Employee           	| POST api/employees                   	| Add a Employee                         	|
+| Void              	| Delete api/employees/{id}            	| Delete/Deactivate a Employee                      	|
 
 
 
