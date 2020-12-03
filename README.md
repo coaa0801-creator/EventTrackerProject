@@ -58,6 +58,10 @@ http://localhost:8083/
 ## Struggles
 The only major issue I encountered was JPA ignoring default values from the DB. Utilized some instructor and colleague help to solve the issue. Everything else came together very quickly, I just need to take it a step further with additional repositories and service interfaces to add additional search and recall mobility.
 
+Multiple Entity simultaneous updates. 
+
+I really look forward to the continued work on this project. Going to be a little bit of a pet for a while as I continue to build it out.
+
 ## Lessons Learned
 Learned that JPA can be unreliable in its creation of objects with default values. Assigned the entities themselves the default value for the boolean fields to avoid issues upon create method call.
 
