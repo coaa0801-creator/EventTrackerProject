@@ -31,6 +31,8 @@ public class Customer {
 	
 	private String email;
 	
+	private String phone;
+	
 	@Column(name = "create_date")
 	@CreationTimestamp
 	private LocalDateTime createDate;
@@ -207,6 +209,14 @@ public class Customer {
 	public String toString() {
 		return "Customer [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", createDate="
 				+ createDate + ", lastUpdate=" + lastUpdate + ", active=" + active + ", company=" + company + "]";
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 }

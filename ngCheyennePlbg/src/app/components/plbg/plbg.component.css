@@ -14,3 +14,22 @@
   text-decoration: underline;
   color: royalblue;
 }
+#jobDisplayHead{
+  text-align: center;
+  position: fixed;
+  width: 25%;
+left: 40%;
+}
+.jobDisplayCustomer{
+  text-align: center;
+  position: fixed;
+  width: 50%;
+top: 20%;
+}
+.jobDisplayAddress{
+  text-align: center;
+  position: fixed;
+  width: 50%;
+top: 20%;
+right: 0;
+}

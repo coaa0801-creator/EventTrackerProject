@@ -44,7 +44,16 @@
     <ul *ngFor="let e of errors">
       <li>{{ e }}</li>
     </ul>
-  </div>
+  </div>&nbsp;
+  <button
+    (click)="
+      addJob = false;
+      existingCustomerNewJob = false;
+      newCustomerAddJob = false
+    "
+  >
+    Back
+  </button>&nbsp;
   <h1 class="newJobHeader">New Job</h1>
   <form #newJobForm="ngForm">
     <label for="name" style="width: 80px">Job Name:</label>
@@ -60,7 +69,7 @@
       *ngIf="!existingCustomerNewJob"
       type="checkbox"
       name="new"
-      (click)="setNewCustomer()"
+      (click)="setNewCustomer(); newCustomerForm = checkNewCustomer()"
       [(ngModel)]="newCustomerAddJob"
       style="width: 40px"
     />
@@ -70,7 +79,7 @@
       *ngIf="!newCustomerAddJob"
       type="checkbox"
       name="new"
-      (click)="setExistingCustomer()"
+      (click)="setExistingCustomer(); existingCustomerForm = checkExistingCustomer()"
       [(ngModel)]="existingCustomerNewJob"
       style="width: 40px"
     />&nbsp;
@@ -205,7 +214,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let c of customers; let i = index" [attr.data-index]="i">
+          <tr *ngFor="let c of customers" >
             <td>
               <input type="checkbox" (click)="setNewJobExistingCustomer(c)" />
             </td>
@@ -227,21 +236,12 @@
               </ul>
             </td>
             <td>{{ c.email }}</td>
-            <td>{{ c.addresses[0].phone }}</td>
+            <td>{{ c.phone }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <button
-      (click)="
-        addJob = false;
-        existingCustomerNewJob = false;
-        newCustomerAddJob = false
-      "
-    >
-      Back
-    </button>&nbsp;
-    <input type="button" value="Create New Job" (click)="createNewJob()" />
+    <input *ngIf="existingCustomerForm || newCustomerForm" type="button" value="Create New Job" (click)="createNewJob(); existingCustomerForm = false; newCustomerForm = false " />
   </form>
 </div>
 
@@ -250,12 +250,22 @@
 
 
 <div *ngIf="selected && updateJob">
+
+
+
   <div class="errors" *ngIf="errors">
     <ul *ngFor="let e of errors">
       <li>{{ e }}</li>
     </ul>
   </div>
+
+  &nbsp;
+  <button (click)="selected = null; updateJob = false">Back</button>
+
   <h2 class="newJobHeader">Edit the {{ editJob.name }} Job</h2>
+
+
+
   <form #updateForm="ngForm">
     <input type="hidden" name="id" [ngModel]="editJob.id" />
     <input type="hidden" name="customerId" [ngModel]="editJobCustomer.id" />
@@ -378,18 +388,31 @@
       type="text"
       name="phone"
       placeholder="10-digit (no dashes)"
-      [(ngModel)]="editJobAddress.phone"
+      [(ngModel)]="editJobCustomer.phone"
     />
-    <br />&nbsp;
-    <button (click)="selected = null; updateJob = false">Back</button
-    >&nbsp;<button type="button" name="submit" (click)="updateJobEdit()">Save</button>
+    <br />
+    &nbsp;<button type="button" name="submit" (click)="updateJobEdit()">Save</button>
   </form>
 </div>
 
 <div *ngIf="selected && !updateJob">
   &nbsp;<button (click)="selected = null">Back</button>
+<div id="jobDisplayHead">
+  <h1>{{selected.name}} Job</h1>
+</div>
+<div class="jobDisplayCustomer">
+<h4>Customer</h4>
+<div **ngIf="!editCustomer">
+<label for="firstName"></label>
+</div>
 
-This is where I would put the data
+</div>
+<div class="jobDisplayAddress">
+<h4>Address</h4>
+
+
+</div>
+
 
 
 

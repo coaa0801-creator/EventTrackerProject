@@ -165,6 +165,12 @@ setEditJob(j: Job){
 
     this.newJobExistingCustCount = this.newJobExistingCustCount + 1;
   }
+  checkNewCustomer(){
+    return this.newCustomerAddJob;
+  }
+  checkExistingCustomer(){
+    return this.existingCustomerNewJob;
+  }
 
   setNewJobExistingCustomer(c: Customer) {
 

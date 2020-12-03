@@ -8,6 +8,7 @@ export class Customer {
   email: String;
   addresses: Address[];
   company: String;
+  phone: String;
   jobs: Job [];
 
   constructor(
@@ -16,7 +17,9 @@ export class Customer {
     lastName?: String,
     email?: String,
     addresses?: Address[],
-    company?: String
+    company?: String,
+    phone?: String,
+    jobs?: Job []
     ){
       this.id= id;
             this.firstName= firstName;
@@ -24,7 +27,9 @@ export class Customer {
             this.email= email;
             this.addresses= addresses;
             this.company= company;
-            this.addresses = [];
+            this.phone = phone;
+            this.jobs = jobs;
+
 
 
 
