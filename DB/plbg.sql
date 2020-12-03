@@ -276,10 +276,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cheyplbgdb`;
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (1, '25 RB St', NULL, 'Stanford', 'MN', NULL, NULL, NULL);
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (2, '35 BR Ave', NULL, 'Gilmore', 'MN', NULL, NULL, NULL);
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (3, '3564 Min Ct', NULL, 'Jiminey', 'MN', NULL, NULL, NULL);
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (4, '1354 Private Ln', NULL, 'Folsom', 'MN', NULL, NULL, NULL);
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (1, '25 RB St', NULL, 'Stanford', 'MN', NULL, NULL, '3654987563');
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (2, '35 BR Ave', NULL, 'Gilmore', 'MN', NULL, NULL, '3469512786');
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (3, '3564 Min Ct', NULL, 'Jiminey', 'MN', NULL, NULL, '6435975126');
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (4, '1354 Private Ln', NULL, 'Folsom', 'MN', NULL, NULL, '6497582136');
 INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `customer_id`, `phone`) VALUES (5, '2000 Made Up Job', NULL, 'Prior Lake', 'MN', NULL, 1, NULL);
 
 COMMIT;

@@ -383,7 +383,7 @@
       placeholder="5-Digit Zip Code"
       [(ngModel)]="editJobAddress.zip"
     /><br />
-    <label for="phone" style="width: 80px">Phone #:</label>
+    <label for="phone" style="width: 80px">Phone:</label>
     <input
       type="text"
       name="phone"
@@ -402,18 +402,356 @@
 </div>
 <div class="jobDisplayCustomer">
 <h4>Customer</h4>
-<div **ngIf="!editCustomer">
-<label for="firstName"></label>
+<div *ngIf="!editCustomer">
+  <div class="customerDetails">
+    <label for="company">Company: </label>&nbsp;{{selected.customer.company}}<br>
+    <label for="name">Name: </label>&nbsp;{{selected.customer.firstName}} {{selected.customer.lastName}} <br>
+    <label for="email">Email: </label>&nbsp;{{selected.customer.email}} <br>
+    <label for="phone">Phone: </label>&nbsp;{{selected.customer.phone}} <br>
+    <label for="address">Addresses: </label>&nbsp;<p *ngFor="let a of selected.customer.addresses" for="address">{{ a.address }} {{ a.address2 }} {{ a.city }}, {{ a.state }}
+      {{ a.zip }} <br> </p>
+    <button (click)="editCustomer = true; setEditCustomer(selected.customer)">Edit</button>
+
+  </div>
+</div>
+<div *ngIf="editCustomer">
+  <div class="customerDetails">
+    <form #editCustomerForm="ngForm">
+
+      <label for="company">Company: </label>&nbsp;<input
+      type="text"
+      name="company"
+      placeholder="Company"
+      [(ngModel)]="blankCustomer.company"
+    /><br>
+      <label for="name">Name: </label>&nbsp;<input
+      type="text"
+      name="firstName"
+      placeholder="First Name"
+      [(ngModel)]="blankCustomer.firstName"
+    />&nbsp;
+    <input
+      type="text"
+      name="lastName"
+      placeholder="Last Name"
+      [(ngModel)]="blankCustomer.lastName"
+      required
+    /> <br>
+      <label for="email">Email: </label>&nbsp;<input
+      type="email"
+      name="email"
+      placeholder="Email"
+      [(ngModel)]="blankCustomer.email"
+    /> <br>
+      <label for="phone">Phone: </label>&nbsp;<input
+      type="text"
+      name="phone"
+      placeholder="10-digit (no dashes)"
+      [(ngModel)]="blankCustomer.phone"
+    /> <br>
+      <label for="address">Addresses: </label>&nbsp;
+<div *ngIf="!editAddress && !newAddress">
+      <p  *ngFor="let a of selected.customer.addresses" for="address">{{ a.address }} {{ a.address2 }} {{ a.city }}, {{ a.state }}
+        {{ a.zip }} <br>
+        <button (click)="editAddress = true; setEditAddress(a)">Edit Address </button>&nbsp;
+        <button (click)="newAddress = true">New Address</button>
+      </p>
+    </div>
+        <form  *ngIf="editAddress && !newAddress" #EditAddressForm="ngForm">
+          <label for="address" style="width: 80px">Address:</label>
+          <input
+            type="text"
+            name="addressAddress"
+            placeholder="Street Address"
+            [(ngModel)]="blankAddress.address"
+          />&nbsp;
+          <input
+            type="text"
+            name="address2"
+            placeholder="STE, Apt, Unit No."
+            [(ngModel)]="blankAddress.address2"
+          />&nbsp;
+          <input
+            type="text"
+            name="city"
+            placeholder="City"
+            [(ngModel)]="blankAddress.city"
+          />&nbsp;
+          <select name="state" [(ngModel)]="blankAddress.state">
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option></select
+          >&nbsp;
+          <input
+            type="text"
+            name="zip"
+            placeholder="5-Digit Zip Code"
+            [(ngModel)]="blankAddress.zip"
+          />
+          <button type="submit" (click)="editAddress = false; updateAddress(a)">Save</button>&nbsp;
+          <button type="submit" (click)="editAddress = false; resetEditAddress()">Cancel</button>
+      </form> <br>
+
+
+        <form *ngIf="!editAddress && newAddress" #EditAddressForm="ngForm">
+          <label for="address" style="width: 80px">Address:</label>
+          <input
+            type="text"
+            name="addressAddress"
+            placeholder="Street Address"
+            [(ngModel)]="blankAddress.address"
+          />&nbsp;
+          <input
+            type="text"
+            name="address2"
+            placeholder="STE, Apt, Unit No."
+            [(ngModel)]="blankAddress.address2"
+          />&nbsp;
+          <input
+            type="text"
+            name="city"
+            placeholder="City"
+            [(ngModel)]="blankAddress.city"
+          />&nbsp;
+          <select name="state" [(ngModel)]="blankAddress.state">
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option></select
+          >&nbsp;
+          <input
+            type="text"
+            name="zip"
+            placeholder="5-Digit Zip Code"
+            [(ngModel)]="blankAddress.zip"
+          />
+          <button type="submit" (click)="newAddress = false; createAddress(a)">Save</button>
+          <button type="submit" (click)="newAddress = false; resetEditAddress()">Cancel</button>
+      </form> <br>
+
+
+
+      <button type="submit" (click)="editCustomer = false; updateCustomer()">Save Customer</button>&nbsp;
+      <button type="submit" (click)="editCustomer = false; resetEditCustomer()">Cancel</button>
+
+      </form>
+  </div>
 </div>
 
 </div>
 <div class="jobDisplayAddress">
 <h4>Address</h4>
-
-
+<div class="jobAddressDetails" *ngIf="!editJobAddress">
+  <label for="address">Job Location:</label><p name="address">{{ selected.address.address }} {{ selected.address.address2 }} {{ selected.address.city }}, {{ selected.address.state }}
+    {{ selected.address.zip }}</p><br> <button (click)="editJobAddress = true; setEditAddress(selected.address)">Edit Address </button>
 </div>
+<div class="jobAddressDetails">
+  <form  *ngIf="editJobAddress" #EditAddressForm="ngForm">
+    <label for="address" style="width: 80px">Address:</label>
+    <input
+      type="text"
+      name="addressAddress"
+      placeholder="Street Address"
+      [(ngModel)]="blankAddress.address"
+    />&nbsp;
+    <input
+      type="text"
+      name="address2"
+      placeholder="STE, Apt, Unit No."
+      [(ngModel)]="blankAddress.address2"
+    />&nbsp;
+    <input
+      type="text"
+      name="city"
+      placeholder="City"
+      [(ngModel)]="blankAddress.city"
+    />&nbsp;
+    <select name="state" [(ngModel)]="blankAddress.state">
+      <option value="AL">Alabama</option>
+      <option value="AK">Alaska</option>
+      <option value="AZ">Arizona</option>
+      <option value="AR">Arkansas</option>
+      <option value="CA">California</option>
+      <option value="CO">Colorado</option>
+      <option value="CT">Connecticut</option>
+      <option value="DE">Delaware</option>
+      <option value="DC">District Of Columbia</option>
+      <option value="FL">Florida</option>
+      <option value="GA">Georgia</option>
+      <option value="HI">Hawaii</option>
+      <option value="ID">Idaho</option>
+      <option value="IL">Illinois</option>
+      <option value="IN">Indiana</option>
+      <option value="IA">Iowa</option>
+      <option value="KS">Kansas</option>
+      <option value="KY">Kentucky</option>
+      <option value="LA">Louisiana</option>
+      <option value="ME">Maine</option>
+      <option value="MD">Maryland</option>
+      <option value="MA">Massachusetts</option>
+      <option value="MI">Michigan</option>
+      <option value="MN">Minnesota</option>
+      <option value="MS">Mississippi</option>
+      <option value="MO">Missouri</option>
+      <option value="MT">Montana</option>
+      <option value="NE">Nebraska</option>
+      <option value="NV">Nevada</option>
+      <option value="NH">New Hampshire</option>
+      <option value="NJ">New Jersey</option>
+      <option value="NM">New Mexico</option>
+      <option value="NY">New York</option>
+      <option value="NC">North Carolina</option>
+      <option value="ND">North Dakota</option>
+      <option value="OH">Ohio</option>
+      <option value="OK">Oklahoma</option>
+      <option value="OR">Oregon</option>
+      <option value="PA">Pennsylvania</option>
+      <option value="RI">Rhode Island</option>
+      <option value="SC">South Carolina</option>
+      <option value="SD">South Dakota</option>
+      <option value="TN">Tennessee</option>
+      <option value="TX">Texas</option>
+      <option value="UT">Utah</option>
+      <option value="VT">Vermont</option>
+      <option value="VA">Virginia</option>
+      <option value="WA">Washington</option>
+      <option value="WV">West Virginia</option>
+      <option value="WI">Wisconsin</option>
+      <option value="WY">Wyoming</option></select
+    >&nbsp;
+    <input
+      type="text"
+      name="zip"
+      placeholder="5-Digit Zip Code"
+      [(ngModel)]="blankAddress.zip"
+    />
+    <button type="submit" (click)="editAddress = false; updateAddress(a)">Save</button>&nbsp;
+    <button type="submit" (click)="editAddress = false; resetEditAddress()">Cancel</button>
+</form> <br>
+</div>
+</div>
+  <div class="jobStaff">
+  <h4>Staff Assigned</h4>
+  <table *ngIf="!addNewEmployee && !removeEmployee" class="table">
+    <thead>
+      <tr>
 
-
-
-
+        <th>Name</th>
+        <th>Phone #</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of selected.staff">
+        <td>{{e.firstName}} {{e.lastName}}</td>
+        <td>{{e.address.phone}}</td>
+        <td>{{e.email}}</td>
+      </tr>
+  </tbody>
+  </table>
+<button *ngIf="!addNewEmployee && !removeEmployee" (click)="addNewEmployee = true">Add Employee</button>&nbsp;
+<button *ngIf="!addNewEmployee && !removeEmployee" (click)="removeEmployee = true">Remove Employee</button>
+<div *ngIf="addNewEmployee">
+  <select name="employee" id="employee" [(ngModel)]="blankEmployee">
+    <option *ngFor="let e of selected.staff | jobAssigned:'no':selected" value="{{e}}">{{e.firstName}} {{e.lastName}}</option>
+  </select>
+  <button type="submit" (click)="addNewEmployee = false; updateEmployee(blankEmployee)">Save</button>&nbsp;
+  <button type="submit" (click)="addNewEmployee = false; resetBlankEmployee()">Cancel</button>
+</div>
+  </div>
 </div>

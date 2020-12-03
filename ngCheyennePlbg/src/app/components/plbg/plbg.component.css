@@ -16,20 +16,58 @@
 }
 #jobDisplayHead{
   text-align: center;
-  position: fixed;
+  position: relative;
+  margin-top: 5px;
   width: 25%;
 left: 40%;
 }
 .jobDisplayCustomer{
   text-align: center;
-  position: fixed;
+  position: relative;
+  float: left;
+  margin-top: 5px;
   width: 50%;
-top: 20%;
+
+}
+.jobStaff{
+  text-align: center;
+  position: relative;
+  float: left;
+  margin-top: 15px;
+  width: 50%;
+
+}
+.jobStaff tr{
+  text-align: left;
+}
+.jobStaff thead tr {
+  text-align: center;
 }
 .jobDisplayAddress{
   text-align: center;
-  position: fixed;
+  float: left;
+  position: relative;
   width: 50%;
-top: 20%;
-right: 0;
+
+}
+.customerDetails{
+  text-align: left;
+  position: relative;
+  left: 10px;
+}
+.jobAddressDetails{
+  text-align: left;
+  position: relative;
+}
+.jobAddressDetails label{
+  width: 115px;
+}
+.customerDetails label{
+  width: 95px;
+}
+.jobAddressDetails p{
+  display: inline;
+}
+.customerDetails p{
+  display: inline;
 }

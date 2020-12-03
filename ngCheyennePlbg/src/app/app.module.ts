@@ -15,6 +15,7 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { DepartmentsComponent } from './components/departments/departments.component';
 import { PlbgComponent } from './components/plbg/plbg.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { JobAssignedPipe } from './pipes/job-assigned.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     EmployeeComponent,
     DepartmentsComponent,
     NotFoundComponent,
+    JobAssignedPipe,
   ],
   imports: [
     BrowserModule,
