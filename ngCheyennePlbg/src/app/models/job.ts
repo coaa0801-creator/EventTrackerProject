@@ -1,5 +1,9 @@
 import { Address } from './address';
 import { Customer } from './customer';
+import { Department } from './department';
+import { Employee } from './employee';
+import { Part } from './part';
+import { Permit } from './permit';
 export class Job {
 
 id: number;
@@ -9,6 +13,10 @@ paid: number;
 estimate: number;
 customer: Customer;
 address: Address;
+permits: Permit[];
+jobTypes: Department[];
+parts: Part[];
+staff: Employee[];
 
 
 constructor(
@@ -18,7 +26,11 @@ constructor(
   paid?: number,
   estimate?: number,
   customer?: Customer,
-  address?: Address
+  address?: Address,
+  permits?: Permit[],
+jobTypes?: Department[],
+parts?: Part[],
+staff?: Employee[]
 ){
   this.id = id;
   this.name= name;
@@ -27,6 +39,10 @@ constructor(
   this.estimate= estimate;
   this.customer= customer;
   this.address= address;
+  this.permits= permits;
+this.jobTypes= jobTypes;
+this.parts= parts;
+this.staff= staff;
 
 }
 }

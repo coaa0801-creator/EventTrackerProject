@@ -10,3 +10,7 @@
 .errors {
   color: red;
 }
+#jobName:hover{
+  text-decoration: underline;
+  color: royalblue;
+}

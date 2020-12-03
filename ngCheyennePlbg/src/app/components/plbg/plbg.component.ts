@@ -89,7 +89,8 @@ export class PlbgComponent implements OnInit {
   }
 
 setEditJob(j: Job){
-  this.editJob = Object.assign({},j);
+  this.selected = j;
+  this.editJob = j;
   // console.log(j.customer);
 
   this.editJobAddress = this.editJob.address;

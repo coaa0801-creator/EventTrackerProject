@@ -1,3 +1,4 @@
+import { EmployeeComponent } from './components/employee/employee.component';
 import { DepartmentsComponent } from './components/departments/departments.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,6 +14,7 @@ const routes: Routes = [
 { path: 'jobs', component: PlbgComponent },
 { path: 'customers', component: CustomerComponent },
 { path: 'parts', component: PartsComponent },
+{ path: 'employee', component: EmployeeComponent },
 { path: 'departments/plumbing', component: DepartmentsComponent },
 { path: 'departments/heating', component: DepartmentsComponent },
 { path: 'departments/septic', component: DepartmentsComponent },
