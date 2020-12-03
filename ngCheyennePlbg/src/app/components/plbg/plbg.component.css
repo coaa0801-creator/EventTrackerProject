@@ -1,4 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+tr:nth-child(even) {
+  background-color: #e6f4ff;
+}
 
 .tableButton{
   text-align: center;
@@ -24,15 +27,34 @@ left: 40%;
 .jobDisplayCustomer{
   text-align: center;
   position: relative;
+  float: right;
+  margin-top: 5px;
+  width: 50%;
+
+}
+.showPermits{
+  text-align: center;
+  position: relative;
   float: left;
   margin-top: 5px;
   width: 50%;
 
 }
-.jobStaff{
+.jobCost{
   text-align: center;
   position: relative;
   float: left;
+  margin-top: 15px;
+  width: 50%;
+
+}
+.showPermits ul{
+  text-align: left;
+}
+.jobStaff{
+  text-align: center;
+  position: relative;
+  float: right;
   margin-top: 15px;
   width: 50%;
 
@@ -56,6 +78,10 @@ left: 40%;
   left: 10px;
 }
 .jobAddressDetails{
+  text-align: left;
+  position: relative;
+}
+.partsDetails{
   text-align: left;
   position: relative;
 }

@@ -9,24 +9,20 @@ export class JobAssignedPipe implements PipeTransform {
 
   transform(staff: Employee[], assigned: String, job: Job): Employee[] {
 const results = []
-console.log(assigned);
-console.log(staff);
-console.log(job);
 
 if(assigned == 'no'){
   staff.forEach(e => {
-    e.jobs.forEach(j => {
-      if(j != job){
-        results.push(e);
-      }
-    });
+    if(job.staff.includes(e)){
+      results.push(e);
+    }
   });
 }else if (assigned == 'yes'){
   staff.forEach(e => {
-    if(!e.jobs.includes(job)){
+    if(!job.staff.includes(e)){
       results.push(e);
     }
-});
+  });
+
 
 
 }

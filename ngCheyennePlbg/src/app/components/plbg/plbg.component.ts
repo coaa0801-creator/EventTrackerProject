@@ -1,3 +1,6 @@
+import { PermitService } from './../../services/permit.service';
+import { Part } from './../../models/part';
+import { PartService } from './../../services/part.service';
 import { Employee } from './../../models/employee';
 import { EmployeeService } from './../../services/employee.service';
 import { AddressService } from './../../services/address.service';
@@ -19,6 +22,7 @@ export class PlbgComponent implements OnInit {
   customers: Customer[] = [];
   addresses: Address [] = [];
   staff: Employee [] = [];
+  parts: Part [] = [];
   errors: String[] = [];
   selected = null;
   jobPage = false;
@@ -49,16 +53,23 @@ export class PlbgComponent implements OnInit {
   editJob = null;
   editJobAddress = null;
   editJobCustomer = null;
+  formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  })
+  partsToAdd: Part[] = [];
 
 
 
-  constructor(private jServ: JobService, private cServ: CustomerService, private aServ: AddressService, private eServ: EmployeeService) {}
+  constructor(private jServ: JobService, private cServ: CustomerService, private aServ: AddressService, private eServ: EmployeeService, private ptServ: PartService, private pServ: PermitService) {}
 
   ngOnInit(): void {
     this.loadJobs();
     this.loadCustomers();
     this.loadAddresses();
     this.loadStaff();
+    this.loadParts();
 
   }
   reload(): void{
@@ -66,6 +77,7 @@ export class PlbgComponent implements OnInit {
     this.loadCustomers();
     this.loadAddresses();
     this.loadStaff();
+    this.loadParts();
 
 }
 
@@ -73,6 +85,16 @@ export class PlbgComponent implements OnInit {
     this.jServ.index().subscribe(
       (data) => {
         this.jobs = data;
+        // console.log(this.jobs);
+      },
+      (err) => {}
+    );
+
+  }
+  loadParts(): void {
+    this.ptServ.index().subscribe(
+      (data) => {
+        this.parts = data;
         // console.log(this.jobs);
       },
       (err) => {}
@@ -89,7 +111,9 @@ export class PlbgComponent implements OnInit {
     );
 
   }
-
+formatCurrency(num: number){
+  return this.formatter.format(num);
+}
   loadAddresses(): void {
     this.aServ.index().subscribe(
       (data) => {
@@ -209,6 +233,11 @@ resetBlankEmployee(){
   checkExistingCustomer(){
     return this.existingCustomerNewJob;
   }
+
+  addPartToJob(p: Part){
+    this.partsToAdd.push(p);
+  }
+
 
   setNewJobExistingCustomer(c: Customer) {
 
